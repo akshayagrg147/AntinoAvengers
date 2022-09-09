@@ -6,13 +6,13 @@ import android.os.Bundle
 import com.antino.avengers.R
 import com.antino.avengers.databinding.ActivityLoginBinding
 
-class LoginActivity : Activity() {
+class LoginActivity : AppCompatActivity() {
 
     lateinit var binding: ActivityLoginBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        binding.acEmail.setText("Enter email")
+//        binding.acEmail.setText("Enter email")
     }
 }
