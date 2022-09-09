@@ -13,6 +13,6 @@ class LoginActivity : Activity() {
         super.onCreate(savedInstanceState)
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
+        binding.acEmail.setText("Enter email")
     }
 }

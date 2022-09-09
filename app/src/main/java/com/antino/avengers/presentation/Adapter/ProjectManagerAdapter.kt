@@ -1,10 +1,10 @@
-package com.antino.avengers
+package com.antino.avengers.presentation.Adapter
 
 import android.content.Context
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.antino.avengers.ProjectManagersModel
 import com.antino.avengers.databinding.ManagerItemsBinding
 
 

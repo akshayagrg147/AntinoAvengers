@@ -1,10 +1,10 @@
-package com.antino.avengers
+package com.antino.avengers.Others
 
 import android.content.Context
 import android.view.animation.AnimationUtils
-import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.antino.avengers.R
 
 class Utils {
     companion object{
