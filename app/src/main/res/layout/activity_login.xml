@@ -90,7 +90,7 @@
                 android:layout_height="match_parent"
                 android:background="@android:color/transparent"
 
-                android:hint="Enter Email"
+                android:hint="Enter Password"
                 android:gravity="center_vertical"
                 android:imeOptions="actionDone"
                 android:inputType="textPassword"
