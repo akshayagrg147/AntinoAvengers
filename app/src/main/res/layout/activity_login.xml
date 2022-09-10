@@ -40,68 +40,64 @@
             android:inputType="textEmailAddress"
             android:layout_marginTop="@dimen/_16sdp"
             android:paddingTop="@dimen/_8sdp"
-            android:paddingBottom="@dimen/_8sdp"
+            android:paddingBottom="@dimen/_12sdp"
             android:paddingStart="20dp"
             android:paddingEnd="@dimen/_22sdp"
             android:background="@drawable/curve_background"
 
             >
-            <com.google.android.material.textfield.TextInputLayout
-                android:layout_width="match_parent"
-
-                android:gravity="center"
-                android:layout_height="match_parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                >
-
-                <AutoCompleteTextView
-                    android:id="@+id/acEmail"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:paddingTop="@dimen/_8sdp"
-                    android:paddingBottom="@dimen/_8sdp"
-                    android:drawableRight="@drawable/email_icon"
-                    android:hint="Enter Email"
-                    android:inputType="textEmailAddress"
-                    android:background="@android:color/transparent"
-
-                    />
-            </com.google.android.material.textfield.TextInputLayout>
-
-        </LinearLayout>
-        <LinearLayout
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/layout_email"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="textEmailAddress"
-            android:paddingStart="20dp"
-            android:layout_marginTop="12dp"
-            android:paddingTop="@dimen/_8sdp"
-            android:paddingBottom="@dimen/_8sdp"
-            android:paddingEnd="@dimen/_20sdp"
-            android:background="@drawable/curve_background"
+
             >
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/layout_password"
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etEmail"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                app:passwordToggleEnabled="true"
-                app:passwordToggleTint="@color/black"
+                android:background="@android:color/transparent"
+                android:drawableEnd="@drawable/email_icon"
 
->
-                <EditText
-                    android:id="@+id/edt_password"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:paddingTop="@dimen/_8sdp"
-                    android:paddingBottom="@dimen/_8sdp"
-                    android:hint="Enter Password"
-                    android:inputType="textPassword"
-                    android:background="@android:color/transparent"
-                    app:boxCornerRadiusTopEnd="10dp" />
+                android:hint="Enter Email"
+                android:gravity="center_vertical"
+                android:imeOptions="actionDone"
+                android:inputType="textPassword"
+                android:text=""
+                />
 
-            </com.google.android.material.textfield.TextInputLayout>
+        </com.google.android.material.textfield.TextInputLayout>
         </LinearLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/layout_oassword"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_12sdp"
+            android:paddingStart="@dimen/_12sdp"
+            android:paddingEnd="@dimen/_12sdp"
+            app:passwordToggleEnabled="true"
+            android:background="@drawable/curve_background"
+            app:passwordToggleTint="@color/black"
+            android:paddingTop="@dimen/_6sdp"
+            android:paddingBottom="@dimen/_12sdp"
+            >
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etpassword"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@android:color/transparent"
+
+                android:hint="Enter Email"
+                android:gravity="center_vertical"
+                android:imeOptions="actionDone"
+                android:inputType="textPassword"
+                android:text=""
+                />
+
+        </com.google.android.material.textfield.TextInputLayout>
 
         <Button
             android:id="@+id/login_button"
