@@ -5,9 +5,8 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.antino.avengers.Utils.LoadingState
-import com.bitla.ts.domain.pojo.login_model.LoginResponse
 import com.bitla.ts.domain.pojo.login_model.request.LoginRequest
-import com.bitla.ts.utils.common.getRetrofitErrorMsg
+import com.antino.avengers.Utils.common.getRetrofitErrorMsg
 
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -15,14 +14,15 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class LoginViewModel(private val loginRepository: LoginRepository) : ViewModel(),
-    Callback<LoginResponse> {
+class LoginViewModel<T : Any?>(private val loginRepository: LoginRepository) : ViewModel(),
+    Callback<T> {
 
     companion object {
         val TAG: String = LoginViewModel::class.java.simpleName
     }
-    private val _dataAddUser = MutableLiveData<LoginResponse>()
-    val dataAddUser: LiveData<LoginResponse> get() = _dataAddUser
+    private val _dataAddUser = MutableLiveData<TempResponse>()
+    val dataAddUser: LiveData<TempResponse>
+    get() = _dataAddUser
 
     private var apiType: String? = null
 
@@ -41,17 +41,17 @@ class LoginViewModel(private val loginRepository: LoginRepository) : ViewModel()
     }
 
 
-    override fun onFailure(call: Call<LoginResponse>, t: Throwable) {
+    override fun onFailure(call: Call<T>, t: Throwable) {
         _loadingState.postValue(LoadingState.error(t.message))
     }
 
     override fun onResponse(
-        call: Call<LoginResponse>,
-        response: Response<LoginResponse>
+        call: Call<T>,
+        response: Response<T>
     ) {
         try {
             if (response.isSuccessful) {
-                _dataAddUser.postValue(response.body() as LoginResponse)
+                _dataAddUser.postValue(response.body() as TempResponse)
                 _loadingState.postValue(LoadingState.LOADED)
             } else {
                 val message = getRetrofitErrorMsg(response.errorBody())

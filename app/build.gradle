@@ -24,6 +24,8 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            buildConfigField "String", "BASE_URL", '"http://mba.ticketsimply.com/"'
+
         }
     }
 
@@ -42,6 +44,8 @@ android {
 
 dependencies {
     def koin_version = "3.0.1"
+    def logging_version = "4.9.3"
+    def retrofit_version = "2.9.0"
 
 
     implementation 'androidx.core:core-ktx:1.7.0'
@@ -96,7 +100,9 @@ dependencies {
     implementation "io.insert-koin:koin-android:$koin_version"
     // Koin Android - experimental builder extensions
     implementation "io.insert-koin:koin-android-ext:$koin_version"
-    // Koin for Jetpack Compose (unstable version)
-    implementation "io.insert-koin:koin-androidx-compose:$koin_version"
+
+    implementation "com.squareup.okhttp3:okhttp:$logging_version"
+    implementation "com.squareup.okhttp3:logging-interceptor:$logging_version"
+    implementation "com.squareup.retrofit2:converter-gson:$retrofit_version"
 
 }
