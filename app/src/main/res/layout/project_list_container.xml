@@ -1,6 +1,125 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:cardBackgroundColor="#F7FAFB"
+    android:elevation="@dimen/_4sdp"
+    android:layout_marginBottom="@dimen/_16sdp"
+    app:cardCornerRadius="@dimen/_16sdp">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="vertical">
+
+            <androidx.cardview.widget.CardView
+                android:layout_margin="@dimen/_16sdp"
+                android:layout_width="@dimen/_100sdp"
+                android:layout_height="@dimen/_100sdp"
+                app:cardCornerRadius="@dimen/_50sdp">
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"/>
+            </androidx.cardview.widget.CardView>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/_8sdp"
+            android:backgroundTint="@color/black"
+            android:background="@color/white"
+            android:orientation="vertical">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Prject NAmre"
+
+                android:gravity="center"
+                android:textStyle="bold"
+                android:textColor="@color/white"
+                android:textSize="@dimen/_16sdp"
+                android:id="@+id/project_name"
+                />
+
+         <androidx.constraintlayout.widget.ConstraintLayout
+             android:layout_width="match_parent"
+             android:layout_height="wrap_content"
+             android:layout_marginTop="@dimen/_8sdp"
+             >
+
+             <ImageView
+                 android:id="@+id/up_comma"
+                 android:layout_width="wrap_content"
+                 android:layout_height="wrap_content"
+                 android:src="@drawable/up_commas"
+                 app:layout_constraintStart_toStartOf="parent"
+                 app:layout_constraintTop_toTopOf="parent"
+                 app:tint="@color/white" />
+
+             <ImageView
+                 android:id="@+id/down_comma"
+                 android:layout_width="wrap_content"
+                 android:layout_height="wrap_content"
+                 android:src="@drawable/down_commas"
+                 android:layout_marginTop="-4dp"
+                 app:layout_constraintBottom_toBottomOf="@+id/project_discription"
+                 app:layout_constraintEnd_toEndOf="parent"
+                 app:layout_constraintTop_toBottomOf="@+id/project_discription"
+                 app:tint="@color/white" />
+
+             <TextView
+                 android:id="@+id/project_discription"
+                 android:layout_width="0dp"
+                 android:layout_marginStart="@dimen/_4sdp"
+                 android:layout_height="wrap_content"
+                 android:layout_marginTop="4dp"
+                 android:textColor="@color/white"
+
+                 android:text="hb sfc us cs csjc sjh hs si shd sdsd shdcbsd jhdbc  js hsf jhsjh svcjhs cjs c s "
+                 app:layout_constraintEnd_toStartOf="@+id/down_comma"
+                 app:layout_constraintStart_toEndOf="@+id/up_comma"
+                 app:layout_constraintTop_toTopOf="@+id/up_comma" />
+
+
+
+         </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:textColor="@color/white"
+
+                android:layout_height="wrap_content"
+                android:id="@+id/client_name"
+                android:text="client Name"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/white"
+
+                android:id="@+id/project_manager_name"
+                android:text="client Name"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:textColor="@color/white"
+
+                android:layout_height="wrap_content"
+                android:id="@+id/projectStart_date"
+                android:text="client Name"/>
+
+
+
+
+
+
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+
+
+
+</androidx.cardview.widget.CardView>

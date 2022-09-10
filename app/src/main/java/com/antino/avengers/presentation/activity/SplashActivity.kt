@@ -7,6 +7,7 @@ import android.os.Handler
 import android.os.Looper
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
+import com.antino.avengers.Others.PreferenceUtils
 import com.antino.avengers.R
 import com.antino.avengers.databinding.ActivityMainBinding
 import com.antino.avengers.databinding.ActivitySplashBinding
@@ -20,12 +21,28 @@ class SplashActivity : AppCompatActivity() {
         setContentView(binding.root)
         val shake: Animation = AnimationUtils.loadAnimation(this, R.anim.dialog_slide_up)
         binding.logoImage.animation = shake
-
         Handler(Looper.getMainLooper()).postDelayed({
-            intent = Intent(this, LoginActivity::class.java)
-            startActivity(intent)
-            finish()
+            val loginResponse = PreferenceUtils.getLogin()
+            if(loginResponse != null) {
+                if(loginResponse.name?.isNotEmpty() == true){
+                    openHomeActivity()
+                } else {
+                    openLoginActivity()
+                }
+            } else {
+                openLoginActivity()
+            }
         }, 2000)
 
+    }
+    private fun openLoginActivity() {
+        val intent = Intent(this, LoginActivity::class.java)
+        startActivity(intent)
+        finish()
+    }
+    private fun openHomeActivity() {
+        val intent = Intent(this, HomeActivity::class.java)
+        startActivity(intent)
+        finish()
     }
 }
