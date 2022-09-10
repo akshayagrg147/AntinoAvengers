@@ -1,11 +1,8 @@
 package com.antino.avengers
 
-import com.antino.avengers.Utils.common.getprojectbymanager1
-import com.antino.avengers.Utils.common.sign_in_api_name
+import com.antino.avengers.Utils.common.*
 import com.antino.avengers.data.pojo.getprojectbymanager.request.ByManagerRequest
 import com.antino.avengers.data.pojo.getprojectbymanager.response.getProjectManagerResponse
-import com.antino.avengers.Utils.common.get_reviews_api
-import com.antino.avengers.Utils.common.sign_in_api
 import com.antino.avengers.data.pojo.getDevelopersApi.GetDevelopersRequest
 import com.antino.avengers.data.pojo.getDevelopersApi.GetDevelopersResponse
 import com.antino.avengers.data.pojo.getReviewsApi.GetReviewsRequest

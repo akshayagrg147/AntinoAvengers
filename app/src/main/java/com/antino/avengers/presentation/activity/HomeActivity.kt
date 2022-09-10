@@ -47,7 +47,7 @@ class HomeActivity : AppCompatActivity() ,
 
     override fun payonlineClicked(data: Int) {
         if(data>=0){
-            val frag = VPFragment()
+            val frag = DeveloperFragment()
             val manager: FragmentManager = supportFragmentManager
             val transaction: FragmentTransaction = manager.beginTransaction()
             transaction.replace(R.id.frameLayout, frag, "VP Fragment")
