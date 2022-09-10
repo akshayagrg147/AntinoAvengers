@@ -1,4 +1,4 @@
-package com.bitla.ts.utils.common
+package com.antino.avengers.Utils.common
 
 import com.antino.avengers.Utils.Pojo.ErrorResponse
 import com.google.gson.Gson
