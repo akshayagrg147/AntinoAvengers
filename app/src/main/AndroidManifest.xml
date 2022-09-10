@@ -20,15 +20,23 @@
 
         </activity>
         <activity
-            android:name=".presentation.activity.LoginActivity"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
-            android:exported="true">
+            android:name=".presentation.activity.SplashActivity"
+            android:exported="true"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".presentation.activity.HomeActivity"
+            android:exported="false"
+            android:theme="@style/Platform.MaterialComponents.Light" />
+        <activity
+            android:name=".presentation.activity.LoginActivity"
+            android:exported="false"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
         <service  android:name="com.library.lby.firebase.MyFirebaseMessagingService"
             android:enabled="true"
             android:exported="false">
