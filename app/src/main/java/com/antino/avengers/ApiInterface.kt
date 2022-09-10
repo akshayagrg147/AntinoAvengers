@@ -6,6 +6,8 @@ import com.antino.avengers.data.pojo.getprojectbymanager.request.ByManagerReques
 import com.antino.avengers.data.pojo.getprojectbymanager.response.getProjectManagerResponse
 import com.antino.avengers.Utils.common.get_reviews_api
 import com.antino.avengers.Utils.common.sign_in_api
+import com.antino.avengers.data.pojo.getDevelopersApi.GetDevelopersRequest
+import com.antino.avengers.data.pojo.getDevelopersApi.GetDevelopersResponse
 import com.antino.avengers.data.pojo.getReviewsApi.GetReviewsRequest
 import com.antino.avengers.data.pojo.getReviewsApi.response.GetReviewsResponse
 import com.antino.avengers.data.pojo.loginApi.request.LoginRequest
@@ -27,6 +29,11 @@ interface ApiInterface {
     @Headers("Content-Type: application/json")
     @POST(get_reviews_api)
     suspend fun getReviewAPI(@Body getReviewsRequest: GetReviewsRequest): Response<GetReviewsResponse>
+
+
+    @Headers("Content-Type: application/json")
+    @POST(get_developers_api)
+    suspend fun getDevelopersAPI(@Body getDevelopersRequest: GetDevelopersRequest): Response<GetDevelopersResponse>
 
 
 }
