@@ -31,7 +31,7 @@ class HomeActivity : AppCompatActivity() ,
            transaction.add(R.id.frameLayout, frag, "Manager Fragment")
            transaction.commit()
        }
-        else if(IsManger()=="vp"){
+        else {
            val frag = VPFragment()
            val manager: FragmentManager = supportFragmentManager
            val transaction: FragmentTransaction = manager.beginTransaction()
