@@ -20,7 +20,7 @@ class HomeActivity : AppCompatActivity() {
         binding.lifecycleOwner = this@HomeActivity
         binding.executePendingBindings()
 
-        val frag = ProjectManagerFragment()
+        val frag = DeveloperFragment()
         val manager: FragmentManager = supportFragmentManager
         val transaction: FragmentTransaction = manager.beginTransaction()
         transaction.add(R.id.frameLayout, frag, "Test Fragment")

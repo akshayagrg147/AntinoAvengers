@@ -7,8 +7,11 @@ import androidx.lifecycle.viewModelScope
 import com.antino.avengers.LoginRepository
 import com.antino.avengers.Utils.LoadingState
 import com.antino.avengers.Utils.common.getRetrofitErrorMsg
+import com.antino.avengers.Utils.common.get_developers_api
 import com.antino.avengers.Utils.common.get_reviews_api
 import com.antino.avengers.Utils.common.sign_in_api
+import com.antino.avengers.data.pojo.getDevelopersApi.GetDevelopersRequest
+import com.antino.avengers.data.pojo.getDevelopersApi.GetDevelopersResponse
 import com.antino.avengers.data.pojo.getReviewsApi.GetReviewsRequest
 import com.antino.avengers.data.pojo.getReviewsApi.response.GetReviewsResponse
 import com.antino.avengers.data.pojo.loginApi.request.LoginRequest
@@ -27,6 +30,10 @@ class DeveloperViewModel<T : Any?>(private val developerRepository: DeveloperRep
     val getReviews: LiveData<GetReviewsResponse>
         get() = _getReviews
 
+    private val _getDevelopers = MutableLiveData<GetDevelopersResponse>()
+    val getDevelopers: LiveData<GetDevelopersResponse>
+        get() = _getDevelopers
+
 
     private val _loadingState = MutableLiveData<LoadingState>()
     val loadingState: LiveData<LoadingState> get() = _loadingState
@@ -41,6 +48,7 @@ class DeveloperViewModel<T : Any?>(private val developerRepository: DeveloperRep
             if (response.isSuccessful) {
                 when (apiType) {
                     get_reviews_api -> _getReviews.postValue(response.body() as GetReviewsResponse)
+                    get_developers_api -> _getDevelopers.postValue(response.body() as GetDevelopersResponse)
                 }
 
                 _loadingState.postValue(LoadingState.LOADED)
@@ -65,6 +73,17 @@ class DeveloperViewModel<T : Any?>(private val developerRepository: DeveloperRep
         viewModelScope.launch(Dispatchers.IO) {
             _getReviews.postValue(
                 developerRepository.getReview(getReviewsRequest).body()
+            )
+        }
+    }
+
+    fun getDevelopersApi(getDevelopersRequest: GetDevelopersRequest,apiType: String) {
+        this.apiType = apiType
+        _loadingState.postValue(LoadingState.LOADING)
+
+        viewModelScope.launch(Dispatchers.IO) {
+            _getDevelopers.postValue(
+                developerRepository.getDevelopers(getDevelopersRequest).body()
             )
         }
     }

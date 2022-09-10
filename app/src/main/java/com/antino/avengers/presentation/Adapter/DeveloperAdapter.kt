@@ -8,7 +8,7 @@ import com.antino.avengers.data.pojo.getReviewsApi.response.Data
 import com.antino.avengers.databinding.DeveloperListChildBinding
 
 class DeveloperAdapter(
-    private var list: MutableList<Data?>?,
+    private var list: MutableList<com.antino.avengers.data.pojo.getDevelopersApi.Data?>?,
     val context: Context
 ) : RecyclerView.Adapter<DeveloperAdapter.ViewHolder>() {
 
@@ -22,8 +22,8 @@ class DeveloperAdapter(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.managerName.text = list?.get(position)?.developer.toString()
-        holder.email.text = list?.get(position)?.developer.toString()
+        holder.managerName.text = list?.get(position)?.name.toString()
+        holder.email.text = list?.get(position)?.email.toString()
     }
 
     override fun getItemCount(): Int {

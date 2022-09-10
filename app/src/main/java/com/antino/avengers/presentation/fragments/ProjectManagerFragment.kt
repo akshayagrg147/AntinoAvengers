@@ -38,9 +38,9 @@ class ProjectManagerFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentProjectManagerBinding.inflate(inflater, container, false)
-
+/*
         binding.lifecycleOwner = requireActivity()
-        binding.executePendingBindings()
+        binding.executePendingBindings()*/
         // Inflate the layout for this fragment
         return binding.root
     }
