@@ -14,7 +14,8 @@ import com.antino.avengers.presentation.fragments.VPFragment
 import com.google.gson.Gson
 
 
-class HomeActivity : AppCompatActivity() {
+class HomeActivity : AppCompatActivity() ,
+    ProjectManagerFragment.FragmentToActivity{
     private lateinit var binding: ActivityMainBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -22,14 +23,14 @@ class HomeActivity : AppCompatActivity() {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
         binding.lifecycleOwner = this@HomeActivity
         binding.executePendingBindings()
-       if(IsManger()=="manager"){
+       if(IsManger()!="manager"){
            val frag = ProjectManagerFragment()
            val manager: FragmentManager = supportFragmentManager
            val transaction: FragmentTransaction = manager.beginTransaction()
            transaction.add(R.id.frameLayout, frag, "Manager Fragment")
            transaction.commit()
        }
-        else{
+        else if(IsManger()=="vp"){
            val frag = VPFragment()
            val manager: FragmentManager = supportFragmentManager
            val transaction: FragmentTransaction = manager.beginTransaction()
@@ -41,5 +42,16 @@ class HomeActivity : AppCompatActivity() {
     private fun IsManger():String{
         val loginPref = PreferenceUtils.getLogin()
        return loginPref!!.role?:""
+    }
+
+    override fun payonlineClicked(data: Int) {
+        if(data>=0){
+            val frag = VPFragment()
+            val manager: FragmentManager = supportFragmentManager
+            val transaction: FragmentTransaction = manager.beginTransaction()
+            transaction.replace(R.id.frameLayout, frag, "VP Fragment")
+            transaction.commit()
+        }
+
     }
 }

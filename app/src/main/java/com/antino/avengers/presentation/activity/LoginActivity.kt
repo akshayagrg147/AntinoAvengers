@@ -1,6 +1,7 @@
 package com.antino.avengers.presentation.activity
 
 import android.app.DatePickerDialog
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.util.Patterns
@@ -68,15 +69,20 @@ class LoginActivity : AppCompatActivity() {
     private fun setUpObserver() {
         loginViewModel.dataAddUser.observe(this) {
             Log.d("LoginActivity", Gson().toJson(it))
-            try {
+//            try {
                 if (it.status == 200) {
+
                     PreferenceUtils.putObject(it, PREF_LOGGED_IN_USER)
-                    putLoginPref()
+                    val intent = Intent(this, HomeActivity::class.java)
+                    startActivity(intent)
+                    finish()
+
+
                 }
 
-            } catch(e:Exception) {
-                Toast.makeText(this, "Something Went Wrong", Toast.LENGTH_SHORT).show()
-            }
+//            } catch(e:Exception) {
+//                Toast.makeText(this, "Something Went Wrong", Toast.LENGTH_SHORT).show()
+//            }
         }
     }
 

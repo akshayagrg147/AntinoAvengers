@@ -5,16 +5,14 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.antino.avengers.ProjectManagersModel
-import com.antino.avengers.Utils.gone
-import com.antino.avengers.data.pojo.getprojectbymanager.response.getProjectManagerResponse
 import com.antino.avengers.databinding.ManagerItemsBinding
-import com.antino.avengers.databinding.ProjectListContainerBinding
+import com.antino.avengers.databinding.VpItemsBinding
 
 
-class ProjectManagerAdapter(
-    private var serviceslist: List<getProjectManagerResponse.Data?>,
+class VPAdapter(
+    private var serviceslist: List<ProjectManagersModel>,
     val context: Context
-) : RecyclerView.Adapter<ProjectManagerAdapter.PostViewHolder>() {
+) : RecyclerView.Adapter<VPAdapter.PostViewHolder>() {
     private var onItemClickListener: ((position: Int) -> Unit)? = null
 
 
@@ -22,7 +20,7 @@ class ProjectManagerAdapter(
         this.onItemClickListener = onItemClickListener
     }
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PostViewHolder {
-        val binding = ProjectListContainerBinding.inflate(LayoutInflater.from(parent.context))
+        val binding = VpItemsBinding.inflate(LayoutInflater.from(parent.context))
         return PostViewHolder(binding)
     }
 
@@ -32,7 +30,7 @@ class ProjectManagerAdapter(
 
 //    override fun getItemCount(): Int = categories1.size
 
-    inner class PostViewHolder(  private val binding: ProjectListContainerBinding) : RecyclerView.ViewHolder(binding.root) {
+    inner class PostViewHolder(  private val binding: VpItemsBinding) : RecyclerView.ViewHolder(binding.root) {
         init {
             itemView.setOnClickListener {
 
@@ -45,20 +43,13 @@ class ProjectManagerAdapter(
                 }
             }
         }
-        fun OnBind(categories1: getProjectManagerResponse.Data?) {
-            binding.projectManagerName.text = categories1?.manager?.name
-            binding.projectDiscription.text=categories1?.brief
-            binding.projectName.text=categories1?.name
-            binding.projectStartDate.gone()
+        fun OnBind(categories1: ProjectManagersModel) {
+            binding.serviceName.text = categories1.name
 
         }
     }
     override fun getItemCount(): Int {
         return serviceslist.size
-    }
-    fun notify(list:List<getProjectManagerResponse.Data?>){
-        serviceslist=list
-        notifyDataSetChanged()
     }
 
 }

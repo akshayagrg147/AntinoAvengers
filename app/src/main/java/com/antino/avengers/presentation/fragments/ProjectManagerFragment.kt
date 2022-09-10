@@ -7,8 +7,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.navigation.findNavController
+import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.fragment.findNavController
 import com.antino.avengers.LoginViewModel
 import com.antino.avengers.Others.Utils
+import com.antino.avengers.R
 import com.antino.avengers.data.pojo.getprojectbymanager.request.ByManagerRequest
 import com.antino.avengers.data.pojo.getprojectbymanager.response.getProjectManagerResponse
 import com.antino.avengers.databinding.FragmentProjectManagerBinding
@@ -20,12 +24,16 @@ class ProjectManagerFragment : Fragment() {
     val list: List<getProjectManagerResponse.Data> = ArrayList()
     private lateinit var binding: FragmentProjectManagerBinding
     private lateinit var manager: ProjectManagerAdapter
+    private var mCallback: FragmentToActivity? = null
     var con: Context? = null
+
     override fun onAttach(context: Context) {
         super.onAttach(context)
+        mCallback = context as FragmentToActivity
         con = context
-    }
 
+
+    }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -52,11 +60,13 @@ class ProjectManagerFragment : Fragment() {
 
             )
         setUpObserver()
-        Utils.setUpRecyclerOneItemLayoutStaggered(con!!, binding.recyclerView)
+        Utils.setUpRecyclerOneItemLayoutStaggered(con!!, binding.rvView)
         manager = ProjectManagerAdapter(list, con!!)
-        binding.recyclerView.adapter = manager
+        binding.rvView.adapter = manager
         manager.setOnItemClickListener {
-            Log.d("testing", "onViewCreated: ${it}")
+            mCallback?.payonlineClicked(it!!)
+
+//            Log.d("testing", "onViewCreated: ${it}")
         }
     }
 
@@ -69,5 +79,10 @@ class ProjectManagerFragment : Fragment() {
             }
 
         }
+    }
+    interface FragmentToActivity {
+
+        fun payonlineClicked(data: Int)
+
     }
 }
