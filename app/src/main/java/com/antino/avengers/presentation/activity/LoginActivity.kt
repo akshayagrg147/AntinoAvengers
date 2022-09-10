@@ -29,13 +29,13 @@ class LoginActivity : AppCompatActivity() {
 
     private fun callLoginActivity() {
         //if (isNetworkAvailable()) {
-        if (!Patterns.EMAIL_ADDRESS.matcher( binding.acEmail.text.toString()).matches()){
+        if (!Patterns.EMAIL_ADDRESS.matcher( binding.etEmail.text.toString()).matches()){
             Toast.makeText(this, "Enter correct email id", Toast.LENGTH_SHORT).show()
             return
         }
         val loginRequest = LoginRequest(
-                binding.acEmail.text.toString(),
-                binding.edtPassword.text.toString(),
+            binding.etEmail .text.toString(),
+            binding.etpassword .text.toString(),
             )
 
             loginViewModel.loginApi(
