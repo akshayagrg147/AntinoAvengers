@@ -51,14 +51,14 @@ class LoginActivity : AppCompatActivity() {
             Log.d("LoginActivity", Gson().toJson(it))
             if(it.status == 200) {
                 PreferenceUtils.putObject(it, PREF_LOGGED_IN_USER)
-                getPref()
+                putLoginPref()
             }
 
         }
     }
 
-    private fun getPref() {
-        var loginPref = PreferenceUtils.getLogin()
+    private fun putLoginPref() {
+        val loginPref = PreferenceUtils.getLogin()
         Toast.makeText(this, Gson().toJson(loginPref), Toast.LENGTH_SHORT).show()
     }
 }
