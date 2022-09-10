@@ -1,6 +1,7 @@
 package com.antino.avengers.presentation.Adapter
 
 import android.content.Context
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -39,6 +40,7 @@ class ProjectManagerAdapter(
                 val position = adapterPosition
                 if (position != RecyclerView.NO_POSITION) {
 
+                    Log.d("listsize:11", "${position}")
 
                     notifyDataSetChanged()
                     onItemClickListener?.invoke(position)

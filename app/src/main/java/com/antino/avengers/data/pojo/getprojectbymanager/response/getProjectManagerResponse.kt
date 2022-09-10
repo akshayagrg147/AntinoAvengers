@@ -15,7 +15,7 @@ data class getProjectManagerResponse(
         @SerializedName("client")
         val client: Client?,
         @SerializedName("id")
-        val id: Int?,
+        val id: Int?=0,
         @SerializedName("manager")
         val manager: Manager?,
         @SerializedName("name")

@@ -4,30 +4,22 @@ import android.content.Context
 import android.content.res.ColorStateList
 import android.graphics.Color
 import android.os.Bundle
-import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
+import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.antino.avengers.Others.Utils
-import com.antino.avengers.ProjectManagersModel
-import com.antino.avengers.R
 import com.antino.avengers.Utils.common.get_developers_api
-import com.antino.avengers.Utils.common.get_reviews_api
 import com.antino.avengers.Utils.toast
 import com.antino.avengers.data.pojo.getDevelopersApi.GetDevelopersRequest
-import com.antino.avengers.data.pojo.getReviewsApi.GetReviewsRequest
-import com.antino.avengers.data.pojo.getReviewsApi.response.Data
 import com.antino.avengers.databinding.FragmentDeveloperBinding
 import com.antino.avengers.presentation.Adapter.DeveloperAdapter
 import com.antino.avengers.presentation.Adapter.ProjectManagerAdapter
 import com.antino.avengers.presentation.ViewModel.DeveloperViewModel
 import com.google.android.material.bottomsheet.BottomSheetDialog
-import com.google.gson.Gson
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class DeveloperFragment : Fragment() {
@@ -95,25 +87,29 @@ class DeveloperFragment : Fragment() {
 
             dialog.show()
         }
-        getReviewAPI()
-        getDevelopersApi()
+        //getReviewAPI()
+        val bundle = arguments
+        getDevelopersApi(requireContext(), bundle!!.getString("Idpassed").toString())
         setUpObserver()
     }
 
-    private fun getReviewAPI() {
-        var getReviewsRequest = GetReviewsRequest(
-            "1"
-        )
-        developerViewModel.getReviewsApi(getReviewsRequest, get_reviews_api)
-    }
+//    private fun getReviewAPI() {
+//
+//        Toast.makeText(requireContext(), bundle!!.getString("Idpassed").toString(), Toast.LENGTH_SHORT).show()
+//        var getReviewsRequest = GetReviewsRequest(
+//            bundle!!.getString("Idpassed").toString()
+//        )
+//
+//        developerViewModel.getReviewsApi(getReviewsRequest, get_reviews_api)
+//    }
 
     private fun setUpObserver() {
-        developerViewModel.getReviews.observe(viewLifecycleOwner) {
+       /* developerViewModel.getReviews.observe(viewLifecycleOwner) {
             requireContext().toast(Gson().toJson(it))
             var list = mutableListOf<Data?>()
             list = it.data ?: mutableListOf()
             //setAdapter(list)
-        }
+        }*/
         developerViewModel.getDevelopers.observe(viewLifecycleOwner) {
             try {
                 var list = mutableListOf<com.antino.avengers.data.pojo.getDevelopersApi.Data?>()
@@ -133,9 +129,14 @@ class DeveloperFragment : Fragment() {
         binding.developerRv.adapter = developerAdapter
     }
 
-    private fun getDevelopersApi() {
-        var getDevelopersRequest = GetDevelopersRequest("1")
+    private fun getDevelopersApi(requireContext: Context, toString: String) {
+        var getDevelopersRequest = GetDevelopersRequest(toString)
         developerViewModel.getDevelopersApi(getDevelopersRequest, get_developers_api)
+    }
+    interface DevelopertoActivity {
+
+        fun clicked(data: Int)
+
     }
 
 }

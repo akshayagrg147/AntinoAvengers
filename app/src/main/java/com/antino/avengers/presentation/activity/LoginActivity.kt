@@ -75,6 +75,8 @@ class LoginActivity : AppCompatActivity() {
                 if (it.status == 200) {
 
                     PreferenceUtils.putObject(it, PREF_LOGGED_IN_USER)
+                    PreferenceUtils.putString("manager", binding.etEmail .text.toString())
+
                     val intent = Intent(this, HomeActivity::class.java)
                     startActivity(intent)
                     finish()

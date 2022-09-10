@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 
 import com.antino.avengers.LoginViewModel
+import com.antino.avengers.Others.PreferenceUtils
 import com.antino.avengers.Others.Utils
 import com.antino.avengers.R
 import com.antino.avengers.data.pojo.getprojectbymanager.request.ByManagerRequest
@@ -19,7 +20,7 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class ProjectManagerFragment : Fragment() {
     private val viemodal by viewModel<LoginViewModel<Any?>>()
-    val list: List<getProjectManagerResponse.Data> = ArrayList()
+     var list: List<getProjectManagerResponse.Data?> = emptyList()
     private lateinit var binding: FragmentProjectManagerBinding
     private lateinit var manager: ProjectManagerAdapter
     private var mCallback: FragmentToActivity? = null
@@ -53,16 +54,19 @@ class ProjectManagerFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viemodal.managerId(
-            ByManagerRequest(email = "anant.v@antino.io"),
+            ByManagerRequest(email =  PreferenceUtils.getString("manager")),
             "",
 
             )
         setUpObserver()
         Utils.setUpRecyclerOneItemLayoutStaggered(con!!, binding.rvView)
+        Log.d("listsize:", "${list}")
         manager = ProjectManagerAdapter(list, con!!)
         binding.rvView.adapter = manager
         manager.setOnItemClickListener {
-            mCallback?.payonlineClicked(it!!)
+            Log.d("listsize:99", "${mCallback?.clicked(list[it]?.id!!)}")
+
+            mCallback?.clicked(list[it]?.id!!)
 
 //            Log.d("testing", "onViewCreated: ${it}")
         }
@@ -73,14 +77,17 @@ class ProjectManagerFragment : Fragment() {
 
             if (it.status == 200) {
                 if (it.data != null && it.data.isNotEmpty())
-                    manager.notify(it.data)
+                    list=it.data
+                Log.d("listsize:", "${list}")
+
+                manager.notify(it.data!!)
             }
 
         }
     }
     interface FragmentToActivity {
 
-        fun payonlineClicked(data: Int)
+        fun clicked(data: Int)
 
     }
 }
