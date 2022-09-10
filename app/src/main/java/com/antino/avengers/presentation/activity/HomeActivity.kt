@@ -12,6 +12,7 @@ import com.antino.avengers.R
 import com.antino.avengers.databinding.ActivityMainBinding
 import com.antino.avengers.presentation.fragments.VPFragment
 import com.google.gson.Gson
+import com.antino.avengers.presentation.fragments.DeveloperFragment
 
 
 class HomeActivity : AppCompatActivity() ,

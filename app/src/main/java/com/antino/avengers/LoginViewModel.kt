@@ -9,6 +9,7 @@ import com.antino.avengers.Utils.common.getRetrofitErrorMsg
 import com.antino.avengers.Utils.common.sign_in_api_name
 import com.antino.avengers.data.pojo.getprojectbymanager.request.ByManagerRequest
 import com.antino.avengers.data.pojo.getprojectbymanager.response.getProjectManagerResponse
+import com.antino.avengers.Utils.common.sign_in_api
 import com.antino.avengers.data.pojo.loginApi.request.LoginRequest
 import com.antino.avengers.data.pojo.loginApi.response.LoginResponse
 
@@ -73,7 +74,7 @@ class LoginViewModel<T : Any?>(private val loginRepository: LoginRepository) : V
         try {
             if (response.isSuccessful) {
                 when (apiType) {
-                    sign_in_api_name -> _dataAddUser.postValue(response.body() as LoginResponse)
+                    sign_in_api -> _dataAddUser.postValue(response.body() as LoginResponse)
                 }
 
                 _loadingState.postValue(LoadingState.LOADED)
