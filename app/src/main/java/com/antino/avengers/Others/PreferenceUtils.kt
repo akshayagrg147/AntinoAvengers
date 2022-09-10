@@ -4,6 +4,8 @@ package com.antino.avengers.Others
 import android.app.Application
 import android.content.Context
 import android.content.SharedPreferences
+import com.antino.avengers.Utils.common.PREF_LOGGED_IN_USER
+import com.antino.avengers.data.pojo.loginApi.response.LoginResponse
 import com.google.gson.GsonBuilder
 
 object PreferenceUtils {
@@ -126,15 +128,6 @@ object PreferenceUtils {
         mLocalPreferences.edit()?.clear()?.apply()
     }
 
-
-
-
-
-
-
-
-
-
     fun putString(key: String, value: String?) {
         val edit = mLocalPreferences.edit()
         edit.putString(key, value)
@@ -155,5 +148,10 @@ object PreferenceUtils {
         return mLocalPreferences.contains(key)
     }
 
+    fun getLogin(): LoginResponse? {
+        return if (getObject<LoginResponse>(PREF_LOGGED_IN_USER) != null)
+            getObject<LoginResponse>(PREF_LOGGED_IN_USER)
+        else null
+    }
 }
 

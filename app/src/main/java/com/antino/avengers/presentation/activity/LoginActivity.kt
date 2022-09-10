@@ -6,6 +6,8 @@ import android.util.Patterns
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.antino.avengers.LoginViewModel
+import com.antino.avengers.Others.PreferenceUtils
+import com.antino.avengers.Utils.common.PREF_LOGGED_IN_USER
 import com.antino.avengers.data.pojo.loginApi.request.LoginRequest
 import com.antino.avengers.databinding.ActivityLoginBinding
 import com.google.gson.Gson
@@ -52,7 +54,16 @@ class LoginActivity : AppCompatActivity() {
     private fun setUpObserver() {
         loginViewModel.dataAddUser.observe(this){
             Log.d("LoginActivity", Gson().toJson(it))
-            Toast.makeText(this, Gson().toJson(it), Toast.LENGTH_SHORT).show()
+            if(it.status == 200) {
+                PreferenceUtils.putObject(it, PREF_LOGGED_IN_USER)
+                getPref()
+            }
+
         }
+    }
+
+    private fun getPref() {
+        var loginPref = PreferenceUtils.getLogin()
+        Toast.makeText(this, Gson().toJson(loginPref), Toast.LENGTH_SHORT).show()
     }
 }
