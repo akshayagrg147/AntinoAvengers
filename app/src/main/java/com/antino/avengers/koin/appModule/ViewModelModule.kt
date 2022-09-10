@@ -7,4 +7,5 @@ import org.koin.androidx.viewmodel.dsl.viewModel
 
 val ViewModelModule = module {
     viewModel { LoginViewModel<Any?>(get()) }
+//    viewModel { ManagerByIdViewModal<Any?>(get()) }
 }

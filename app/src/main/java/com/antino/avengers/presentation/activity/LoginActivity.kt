@@ -1,5 +1,6 @@
 package com.antino.avengers.presentation.activity
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.util.Patterns
@@ -56,14 +57,15 @@ class LoginActivity : AppCompatActivity() {
             Log.d("LoginActivity", Gson().toJson(it))
             if(it.status == 200) {
                 PreferenceUtils.putObject(it, PREF_LOGGED_IN_USER)
-                putLoginPref()
+
+                intent = Intent(this, HomeActivity::class.java)
+                startActivity(intent)
+                finish()
+
             }
 
         }
     }
 
-    private fun putLoginPref() {
-        val loginPref = PreferenceUtils.getLogin()
-        Toast.makeText(this, Gson().toJson(loginPref), Toast.LENGTH_SHORT).show()
-    }
+
 }

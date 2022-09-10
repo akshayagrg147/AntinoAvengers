@@ -7,6 +7,8 @@ import androidx.lifecycle.viewModelScope
 import com.antino.avengers.Utils.LoadingState
 import com.antino.avengers.Utils.common.getRetrofitErrorMsg
 import com.antino.avengers.Utils.common.sign_in_api_name
+import com.antino.avengers.data.pojo.getprojectbymanager.request.ByManagerRequest
+import com.antino.avengers.data.pojo.getprojectbymanager.response.getProjectManagerResponse
 import com.antino.avengers.data.pojo.loginApi.request.LoginRequest
 import com.antino.avengers.data.pojo.loginApi.response.LoginResponse
 
@@ -26,6 +28,12 @@ class LoginViewModel<T : Any?>(private val loginRepository: LoginRepository) : V
     val dataAddUser: LiveData<LoginResponse>
     get() = _dataAddUser
 
+    private val _getProjectByManager = MutableLiveData<getProjectManagerResponse>()
+    val manager_livedata: LiveData<getProjectManagerResponse>
+        get() = _getProjectByManager
+
+
+
     private var apiType: String? = null
 
     private val _loadingState = MutableLiveData<LoadingState>()
@@ -42,6 +50,17 @@ class LoginViewModel<T : Any?>(private val loginRepository: LoginRepository) : V
         }
     }
 
+
+    fun managerId(request: ByManagerRequest, apiType: String) {
+        this.apiType = apiType
+        _loadingState.postValue(LoadingState.LOADING)
+
+        viewModelScope.launch(Dispatchers.IO) {
+            _getProjectByManager.postValue(
+                loginRepository.getprojectbymanager(request).body()
+            )
+        }
+    }
 
     override fun onFailure(call: Call<T>, t: Throwable) {
         _loadingState.postValue(LoadingState.error(t.message))

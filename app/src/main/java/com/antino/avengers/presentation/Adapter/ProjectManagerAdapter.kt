@@ -5,12 +5,13 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.antino.avengers.ProjectManagersModel
+import com.antino.avengers.data.pojo.getprojectbymanager.response.getProjectManagerResponse
 import com.antino.avengers.databinding.ManagerItemsBinding
 
 
 
 class ProjectManagerAdapter(
-    private var serviceslist: List<ProjectManagersModel>,
+    private var serviceslist: List<getProjectManagerResponse.Data?>,
     val context: Context
 ) : RecyclerView.Adapter<ProjectManagerAdapter.PostViewHolder>() {
     private var onItemClickListener: ((position: Int) -> Unit)? = null
@@ -43,13 +44,17 @@ class ProjectManagerAdapter(
                 }
             }
         }
-        fun OnBind(categories1: ProjectManagersModel) {
-            binding.serviceName.text = categories1.name
+        fun OnBind(categories1: getProjectManagerResponse.Data?) {
+            binding.serviceName.text = categories1?.name
 
         }
     }
     override fun getItemCount(): Int {
         return serviceslist.size
+    }
+    fun notify(list:List<getProjectManagerResponse.Data?>){
+        serviceslist=list
+        notifyDataSetChanged()
     }
 
 }

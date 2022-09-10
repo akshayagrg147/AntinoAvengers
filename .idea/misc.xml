@@ -4,10 +4,14 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Users/om/AndroidStudioProjects/AntinoAvengers/app/src/main/res/layout/Manager_items.xml" value="0.1" />
-        <entry key="..\:/Users/om/AndroidStudioProjects/AntinoAvengers/app/src/main/res/layout/activity_login.xml" value="0.1" />
+        <entry key="..\:/Users/om/AndroidStudioProjects/AntinoAvengers/app/src/main/res/layout/activity_login.xml" value="0.18" />
         <entry key="..\:/Users/om/AndroidStudioProjects/AntinoAvengers/app/src/main/res/layout/activity_main.xml" value="0.1" />
         <entry key="..\:/Users/om/AndroidStudioProjects/AntinoAvengers/app/src/main/res/layout/fragment_project_manager.xml" value="0.1" />
+        <entry key="..\:/Users/om/AndroidStudioProjects/AntinoAvengers/app/src/main/res/layout/fragment_v_p.xml" value="0.10677083333333333" />
+        <entry key="..\:/Users/om/AndroidStudioProjects/AntinoAvengers/app/src/main/res/layout/manager_items.xml" value="0.21" />
         <entry key="..\:/Users/om/AndroidStudioProjects/AntinoAvengers/app/src/main/res/layout/notification.xml" value="0.1" />
+        <entry key="..\:/Users/om/AndroidStudioProjects/AntinoAvengers/app/src/main/res/layout/project_list_container.xml" value="0.121875" />
+        <entry key="..\:/Users/om/AndroidStudioProjects/AntinoAvengers/app/src/main/res/layout/vp_items.xml" value="0.10677083333333333" />
       </map>
     </option>
   </component>
