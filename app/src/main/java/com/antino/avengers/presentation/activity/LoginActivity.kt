@@ -1,15 +1,12 @@
 package com.antino.avengers.presentation.activity
 
-import android.app.Activity
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
 import com.antino.avengers.LoginViewModel
-import com.antino.avengers.R
+import com.antino.avengers.data.pojo.loginApi.request.LoginRequest
 import com.antino.avengers.databinding.ActivityLoginBinding
-import com.bitla.ts.domain.pojo.login_model.request.LoginRequest
-import com.bitla.ts.domain.pojo.login_model.request.ReqBody
 import com.google.gson.Gson
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -22,25 +19,19 @@ class LoginActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        binding.acEmail.setText("Enter email")
         binding.loginButton.setOnClickListener {
-            Toast.makeText(this,"Aa",Toast.LENGTH_LONG).show()
+            callLoginActivity()
         }
 
-        callLoginActivity()
         setUpObserver()
     }
 
     private fun callLoginActivity() {
         //if (isNetworkAvailable()) {
-            val reqBody = ReqBody(
-                "",
-                "",
-                "",
-                "",
+            val loginRequest = LoginRequest(
+                binding.acEmail.text.toString(),
+                binding.edtPassword.text.toString(),
             )
-            val loginRequest =
-                LoginRequest("", "", "", reqBody)
 
             loginViewModel.loginApi(
                 loginRequest,
@@ -56,6 +47,7 @@ class LoginActivity : AppCompatActivity() {
     private fun setUpObserver() {
         loginViewModel.dataAddUser.observe(this){
             Log.d("LoginActivity", Gson().toJson(it))
+            Toast.makeText(this, Gson().toJson(it), Toast.LENGTH_SHORT).show()
         }
     }
 }

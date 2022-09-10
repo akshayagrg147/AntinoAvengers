@@ -5,8 +5,10 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.antino.avengers.Utils.LoadingState
-import com.bitla.ts.domain.pojo.login_model.request.LoginRequest
 import com.antino.avengers.Utils.common.getRetrofitErrorMsg
+import com.antino.avengers.Utils.common.sign_in_api_name
+import com.antino.avengers.data.pojo.loginApi.request.LoginRequest
+import com.antino.avengers.data.pojo.loginApi.response.LoginResponse
 
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -20,8 +22,8 @@ class LoginViewModel<T : Any?>(private val loginRepository: LoginRepository) : V
     companion object {
         val TAG: String = LoginViewModel::class.java.simpleName
     }
-    private val _dataAddUser = MutableLiveData<TempResponse>()
-    val dataAddUser: LiveData<TempResponse>
+    private val _dataAddUser = MutableLiveData<LoginResponse>()
+    val dataAddUser: LiveData<LoginResponse>
     get() = _dataAddUser
 
     private var apiType: String? = null
@@ -51,7 +53,10 @@ class LoginViewModel<T : Any?>(private val loginRepository: LoginRepository) : V
     ) {
         try {
             if (response.isSuccessful) {
-                _dataAddUser.postValue(response.body() as TempResponse)
+                when (apiType) {
+                    sign_in_api_name -> _dataAddUser.postValue(response.body() as LoginResponse)
+                }
+
                 _loadingState.postValue(LoadingState.LOADED)
             } else {
                 val message = getRetrofitErrorMsg(response.errorBody())
