@@ -5,12 +5,16 @@
       <map>
         <entry key="..\:/Users/HP/AndroidStudioProjects/AntinoAvengers/app/src/main/res/drawable/border.xml" value="0.1725" />
         <entry key="..\:/Users/HP/AndroidStudioProjects/AntinoAvengers/app/src/main/res/drawable/button_curve_background.xml" value="0.1725" />
+        <entry key="..\:/Users/HP/AndroidStudioProjects/AntinoAvengers/app/src/main/res/drawable/curve_background.xml" value="0.1745" />
+        <entry key="..\:/Users/HP/AndroidStudioProjects/AntinoAvengers/app/src/main/res/drawable/curve_background2.xml" value="0.1745" />
         <entry key="..\:/Users/HP/AndroidStudioProjects/AntinoAvengers/app/src/main/res/drawable/edittext_bor.xml" value="0.166" />
+        <entry key="..\:/Users/HP/AndroidStudioProjects/AntinoAvengers/app/src/main/res/drawable/ic_launcher_background.xml" value="0.181" />
         <entry key="..\:/Users/HP/AndroidStudioProjects/AntinoAvengers/app/src/main/res/layout/activity_login.xml" value="0.22" />
         <entry key="..\:/Users/HP/AndroidStudioProjects/AntinoAvengers/app/src/main/res/layout/fragment_project_manager.xml" value="0.1" />
+        <entry key="..\:/Users/HP/AndroidStudioProjects/AntinoAvengers/app/src/main/res/layout/mail_bottom_sheet.xml" value="0.33" />
         <entry key="..\:/Users/HP/AndroidStudioProjects/AntinoAvengers/app/src/main/res/layout/manager_items.xml" value="0.25" />
         <entry key="..\:/Users/HP/AndroidStudioProjects/AntinoAvengers/app/src/main/res/layout/notification.xml" value="0.21" />
-        <entry key="..\:/Users/HP/AndroidStudioProjects/AntinoAvengers/app/src/main/res/layout/review_bottom_sheet.xml" value="0.1" />
+        <entry key="..\:/Users/HP/AndroidStudioProjects/AntinoAvengers/app/src/main/res/layout/review_bottom_sheet.xml" value="0.5" />
         <entry key="..\:/Users/om/AndroidStudioProjects/AntinoAvengers/app/src/main/res/layout/Manager_items.xml" value="0.1" />
         <entry key="..\:/Users/om/AndroidStudioProjects/AntinoAvengers/app/src/main/res/layout/activity_login.xml" value="0.1" />
         <entry key="..\:/Users/om/AndroidStudioProjects/AntinoAvengers/app/src/main/res/layout/activity_main.xml" value="0.1" />

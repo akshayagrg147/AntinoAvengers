@@ -1,5 +1,6 @@
 package com.antino.avengers.presentation.activity
 
+import android.app.DatePickerDialog
 import android.os.Bundle
 import android.util.Log
 import android.util.Patterns
@@ -14,8 +15,10 @@ import com.antino.avengers.Utils.toast
 import com.antino.avengers.R
 import com.antino.avengers.data.pojo.loginApi.request.LoginRequest
 import com.antino.avengers.databinding.ActivityLoginBinding
+import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.gson.Gson
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import java.util.*
 
 class LoginActivity : AppCompatActivity() {
 
@@ -34,11 +37,16 @@ class LoginActivity : AppCompatActivity() {
         day = mcalendar.get(Calendar.DAY_OF_MONTH)
         year = mcalendar.get(Calendar.YEAR)
         month = mcalendar.get(Calendar.MONTH)
-        binding.loginButton.setOnClickListener {
-            callLoginActivity()
-            //openCalender()
+//        binding.loginButton.setOnClickListener {
+//            callLoginActivity()
+//            //openCalender()
+//        }
+        binding.loginButton.setOnClickListener{
+            val dialog = BottomSheetDialog(this)
+            val view = layoutInflater.inflate(R.layout.mail_bottom_sheet , null)
+            dialog.setContentView(view)
+            dialog.show()
         }
-
         setUpObserver()
     }
 
@@ -53,6 +61,7 @@ class LoginActivity : AppCompatActivity() {
             binding.etpassword .text.toString(),
             )
 
+
             loginViewModel.loginApi(
                 loginRequest,
                 "",
@@ -63,6 +72,7 @@ class LoginActivity : AppCompatActivity() {
         else
             noNetworkToast()
     }
+
 
     private fun setUpObserver() {
         loginViewModel.dataAddUser.observe(this) {
