@@ -1,60 +1,86 @@
 package com.antino.avengers.presentation.fragments
 
+import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.antino.avengers.Others.Utils
+import com.antino.avengers.ProjectManagersModel
 import com.antino.avengers.R
+import com.antino.avengers.Utils.toast
+import com.antino.avengers.data.pojo.getReviewsApi.GetReviewsRequest
+import com.antino.avengers.data.pojo.getReviewsApi.response.Data
+import com.antino.avengers.databinding.FragmentDeveloperBinding
+import com.antino.avengers.presentation.Adapter.DeveloperAdapter
+import com.antino.avengers.presentation.Adapter.ProjectManagerAdapter
+import com.antino.avengers.presentation.ViewModel.DeveloperViewModel
+import com.google.gson.Gson
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [Fragment] subclass.
- * Use the [DeveloperFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class DeveloperFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
+    val list:ArrayList<ProjectManagersModel> = ArrayList()
+    private lateinit var binding: FragmentDeveloperBinding
+    private lateinit var manager: ProjectManagerAdapter
+    private val developerViewModel by viewModel<DeveloperViewModel<Any?>>()
+    private lateinit var layoutManager: RecyclerView.LayoutManager
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
+    var con: Context? = null
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        con = context
     }
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        binding = FragmentDeveloperBinding.inflate(inflater, container, false)
+
+/*        binding.lifecycleOwner = requireActivity()
+        binding.executePendingBindings()*/
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_developer, container, false)
+        return binding.root
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment DeveloperFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            DeveloperFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
-            }
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        Utils.setUpRecyclerOneItemLayoutStaggered(con!!, binding.developerRv)
+        manager = ProjectManagerAdapter(list, con!!)
+        binding.developerRv.adapter = manager
+        manager.setOnItemClickListener {
+            Log.d("testing", "onViewCreated: ${it}")
+        }
+        getReviewAPI()
+        setUpObserver()
+    }
+
+    private fun getReviewAPI() {
+        var getReviewsRequest = GetReviewsRequest(
+            "1"
+        )
+        developerViewModel.getReviewsApi(getReviewsRequest,"")
+    }
+
+    private fun setUpObserver() {
+        developerViewModel.getReviews.observe(viewLifecycleOwner) {
+            requireContext().toast(Gson().toJson(it))
+            var list = mutableListOf<Data?>()
+            list = it.data ?: mutableListOf()
+            setAdapter(list)
+        }
+    }
+
+    private fun setAdapter(list: MutableList<Data?>) {
+        layoutManager = GridLayoutManager(requireContext(), 2)
+        binding.developerRv.layoutManager = layoutManager
+        val developerAdapter =
+            DeveloperAdapter(list, requireContext())
+        binding.developerRv.adapter = developerAdapter
     }
 }

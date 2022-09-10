@@ -8,6 +8,7 @@ import androidx.fragment.app.FragmentTransaction
 import com.antino.avengers.presentation.fragments.ProjectManagerFragment
 import com.antino.avengers.R
 import com.antino.avengers.databinding.ActivityMainBinding
+import com.antino.avengers.presentation.fragments.DeveloperFragment
 
 
 class HomeActivity : AppCompatActivity() {
