@@ -1,6 +1,7 @@
 package com.antino.avengers.presentation.activity
 
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil

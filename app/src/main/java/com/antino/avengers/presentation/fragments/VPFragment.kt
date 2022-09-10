@@ -7,17 +7,26 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.antino.avengers.Others.Utils
 import com.antino.avengers.ProjectManagersModel
 import com.antino.avengers.R
+import com.antino.avengers.Utils.common.get_all_projects
+import com.antino.avengers.Utils.toast
+import com.antino.avengers.data.pojo.getAllProjects.Data
 import com.antino.avengers.databinding.FragmentProjectManagerBinding
 import com.antino.avengers.databinding.FragmentVPBinding
+import com.antino.avengers.presentation.Adapter.DeveloperAdapter
 import com.antino.avengers.presentation.Adapter.ProjectManagerAdapter
 import com.antino.avengers.presentation.Adapter.VPAdapter
+import com.antino.avengers.presentation.Adapter.VicePresidentAdapter
+import com.antino.avengers.presentation.ViewModel.DeveloperViewModel
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class VPFragment: Fragment() {
+    private val developerViewModel by viewModel<DeveloperViewModel<Any?>>()
 
-    val list:ArrayList<ProjectManagersModel> = ArrayList()
     private lateinit var binding: FragmentVPBinding
     private lateinit var manager: VPAdapter
     var con: Context? = null
@@ -28,9 +37,6 @@ class VPFragment: Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        list.add(ProjectManagersModel(name = "Akshay"))
-        list.add(ProjectManagersModel(name = "Saundarya"))
-        list.add(ProjectManagersModel(name = "Ankit"))
     }
 
     override fun onCreateView(
@@ -47,12 +53,27 @@ class VPFragment: Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        Utils.setUpRecyclerOneItemLayoutStaggered(con!!, binding.recyclerView)
-        manager = VPAdapter(list, con!!)
-        binding.recyclerView.adapter = manager
-        manager.setOnItemClickListener {
+        callAllProjectsApi()
+        setUpObserver()
+    }
 
-            Log.d("testing", "onViewCreated: ${it}")
+    private fun callAllProjectsApi() {
+        developerViewModel.getAllProjects(get_all_projects)
+    }
+
+    private fun setUpObserver() {
+        developerViewModel.getAllProjects.observe(viewLifecycleOwner) {
+            try {
+                setUpAdapter(it.data)
+            } catch(e: Exception) {
+                requireActivity().toast("Something Went Wrong")
+            }
         }
+    }
+
+    private fun setUpAdapter(list: List<Data?>?) {
+        Utils.setUpRecyclerOneItemLayoutStaggered(requireContext(),binding.recyclerView)
+        val manager = VicePresidentAdapter(list!!, con!!)
+        binding.recyclerView.adapter = manager
     }
 }
