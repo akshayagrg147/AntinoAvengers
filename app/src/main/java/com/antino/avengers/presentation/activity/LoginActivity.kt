@@ -29,8 +29,8 @@ class LoginActivity : AppCompatActivity() {
     private fun callLoginActivity() {
         //if (isNetworkAvailable()) {
             val loginRequest = LoginRequest(
-                binding.acEmail.text.toString(),
-                binding.edtPassword.text.toString(),
+                binding.etEmail .text.toString(),
+                binding.etpassword .text.toString(),
             )
 
             loginViewModel.loginApi(

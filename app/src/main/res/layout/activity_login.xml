@@ -63,7 +63,7 @@
                 android:hint="Enter Email"
                 android:gravity="center_vertical"
                 android:imeOptions="actionDone"
-                android:inputType="textPassword"
+                android:inputType="textEmailAddress"
                 android:text=""
                 />
 
