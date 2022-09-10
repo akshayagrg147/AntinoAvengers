@@ -9,4 +9,6 @@ class DeveloperRepository(private val apiInterface : ApiInterface) {
 
     suspend fun getDevelopers(getDevelopersRequest: GetDevelopersRequest) = apiInterface.getDevelopersAPI(getDevelopersRequest)
 
+    suspend fun getAllProjects() = apiInterface.getAllProjects()
+
 }

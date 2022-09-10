@@ -1,18 +1,16 @@
 package com.antino.avengers.presentation.activity
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
 import com.antino.avengers.Others.PreferenceUtils
-import com.antino.avengers.presentation.fragments.ProjectManagerFragment
 import com.antino.avengers.R
 import com.antino.avengers.databinding.ActivityMainBinding
-import com.antino.avengers.presentation.fragments.VPFragment
-import com.google.gson.Gson
 import com.antino.avengers.presentation.fragments.DeveloperFragment
+import com.antino.avengers.presentation.fragments.ProjectManagerFragment
+import com.antino.avengers.presentation.fragments.VPFragment
 
 
 class HomeActivity : AppCompatActivity() ,

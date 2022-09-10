@@ -1,6 +1,7 @@
 package com.antino.avengers
 
 import com.antino.avengers.Utils.common.*
+import com.antino.avengers.data.pojo.getAllProjects.GetAllProjectsResponse
 import com.antino.avengers.data.pojo.getprojectbymanager.request.ByManagerRequest
 import com.antino.avengers.data.pojo.getprojectbymanager.response.getProjectManagerResponse
 import com.antino.avengers.data.pojo.getDevelopersApi.GetDevelopersRequest
@@ -31,6 +32,10 @@ interface ApiInterface {
     @Headers("Content-Type: application/json")
     @POST(get_developers_api)
     suspend fun getDevelopersAPI(@Body getDevelopersRequest: GetDevelopersRequest): Response<GetDevelopersResponse>
+
+    @Headers("Content-Type: application/json")
+    @POST(get_all_projects)
+    suspend fun getAllProjects(): Response<GetAllProjectsResponse>
 
 
 }
