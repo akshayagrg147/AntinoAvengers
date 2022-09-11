@@ -15,19 +15,28 @@ import com.antino.avengers.LoginViewModel
 import com.antino.avengers.Others.PreferenceUtils
 import com.antino.avengers.Others.Utils
 import com.antino.avengers.R
+import com.antino.avengers.Utils.common.PREF_ProjectDetails
+import com.antino.avengers.Utils.common.get_all_projects
+import com.antino.avengers.Utils.gone
+import com.antino.avengers.Utils.toast
+import com.antino.avengers.data.pojo.getAllProjects.Data
 import com.antino.avengers.data.pojo.getprojectbymanager.request.ByManagerRequest
 import com.antino.avengers.data.pojo.getprojectbymanager.response.getProjectManagerResponse
 import com.antino.avengers.databinding.FragmentProjectManagerBinding
 import com.antino.avengers.presentation.Adapter.ProjectManagerAdapter
+import com.antino.avengers.presentation.Adapter.VicePresidentAdapter
+import com.antino.avengers.presentation.ViewModel.DeveloperViewModel
 import com.antino.avengers.presentation.activity.HomeActivity
 import com.antino.avengers.presentation.activity.LoginActivity
+import com.bumptech.glide.Glide
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class ProjectManagerFragment : Fragment() {
     private val viemodal by viewModel<LoginViewModel<Any?>>()
+    private val developerViewModel by viewModel<DeveloperViewModel<Any?>>()
+
     var list: List<getProjectManagerResponse.Data?> = emptyList()
     private lateinit var binding: FragmentProjectManagerBinding
-    private lateinit var manager: ProjectManagerAdapter
 
     var con: Context? = null
 
@@ -50,10 +59,8 @@ class ProjectManagerFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentProjectManagerBinding.inflate(inflater, container, false)
-/*
-        binding.lifecycleOwner = requireActivity()
-        binding.executePendingBindings()*/
-        // Inflate the layout for this fragment
+        allProjectsObserver()
+        setUpObserver()
         return binding.root
     }
 
@@ -71,49 +78,100 @@ class ProjectManagerFragment : Fragment() {
                 ByManagerRequest(email = PreferenceUtils.getString("manager")),
                 "",
                 )
-
-            setUpObserver()
-            Utils.setUpRecyclerOneItemLayoutStaggered(con!!, binding.rvView)
-            Log.d("listsize:", "${list}")
-            manager = ProjectManagerAdapter(list, con!!)
-            binding.rvView.adapter = manager
-
-            manager.setOnItemClickListener {
-                val bundle = Bundle()
-                bundle.putString("pass_id", list[it]?.id!!.toString())
-                Navigation.findNavController(binding.root)
-                    .navigate(R.id.action_pm_to_developer, bundle)
-
-            }
         } else {
-            viemodal.managerId(
-                ByManagerRequest(email = PreferenceUtils.getString("manager")),
-                "",
-
-                )
+            callAllProjectsApi()
         }
 
 
+        binding.logOut.setOnClickListener {
+            val intent = Intent(requireContext(), LoginActivity::class.java)
+            startActivity(intent)
+            PreferenceUtils.clearAllPreferences()
+        }
     }
 
     private fun setUpObserver() {
         viemodal.manager_livedata.observe(requireActivity()) {
+            binding.progressBar.root.gone()
 
-            if (it.status == 200) {
-                if (it.data != null && it.data.isNotEmpty())
-                    list = it.data
-                Log.d("listsize:", "${list}")
+            if (it != null){
+                if (it.status == 200) {
+                    if (it.data != null && it.data.isNotEmpty()){
+                        list = it.data
+                    }
 
-                manager.notify(it.data!!)
+                    val manager = ProjectManagerAdapter(list, con!!)
+
+                    manager.notify(it.data!!)
+
+
+                    Utils.setUpRecyclerOneItemLayoutStaggered(con!!, binding.rvView)
+                    Log.d("listsize:", "${list}")
+
+                    binding.rvView.adapter = manager
+
+
+                    manager.setOnItemClickListener {
+                        val bundle = Bundle()
+                        bundle.putString("pass_id", list[it]?.id!!.toString())
+                        bundle.putString("ProjectName", list[it]?.name!!.toString())
+                        bundle.putString("ProjectDate", list[it]?.brief!!.toString())
+
+                        Navigation.findNavController(binding.root)
+                            .navigate(R.id.action_pm_to_developer, bundle)
+
+                    }
+                }else{
+                    requireContext().toast("Something went wrong")
+                }
+            }else{
+                requireContext().toast("Something went wrong")
             }
+
 
         }
     }
 
     private fun IsManger(): String {
         val loginPref = PreferenceUtils.getLogin()
+        if (loginPref != null) {
+            binding.LoginName.text= loginPref.name
+        }
         return loginPref!!.role ?: ""
     }
 
+
+
+    private fun callAllProjectsApi() {
+        developerViewModel.getAllProjects(get_all_projects)
+    }
+
+    private fun allProjectsObserver() {
+        developerViewModel.getAllProjects.observe(viewLifecycleOwner) {
+            binding.progressBar.root.gone()
+
+            try {
+                setUpAdapter(it.data)
+            } catch(e: Exception) {
+                requireActivity().toast("Something Went Wrong")
+            }
+        }
+    }
+
+    private fun setUpAdapter(list: List<Data?>?) {
+        Utils.setUpRecyclerOneItemLayoutStaggered(requireContext(),binding.rvView)
+        val manager = VicePresidentAdapter(list!!, con!!)
+        binding.rvView.adapter = manager
+
+        manager.setOnItemClickListener {
+            val bundle = Bundle()
+            bundle.putString("pass_id", list[it]?.id!!.toString())
+            bundle.putString("ProjectName", list[it]?.name!!.toString())
+            bundle.putString("ProjectDate", list[it]?.brief!!.toString())
+            Navigation.findNavController(binding.root)
+                .navigate(R.id.action_pm_to_developer, bundle)
+
+        }
+    }
 
 }

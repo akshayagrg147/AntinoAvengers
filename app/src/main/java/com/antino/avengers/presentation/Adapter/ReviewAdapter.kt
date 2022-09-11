@@ -27,7 +27,12 @@ class ReviewAdapter(
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.date.text = list?.get(position)?.review.toString()
-        holder.time.text = list?.get(position)?.reviewTime.toString()
+        val date = list?.get(position)?.reviewTime.toString()
+        if (list?.get(position)?.reviewTime.toString().contains("T")){
+            val selectedDate=date.split("T")
+            holder.time.text = selectedDate[0]
+        }
+//        holder.time.text = list?.get(position)?.reviewTime.toString()
 
         holder.layyy.setOnClickListener {
             onItemClickListener?.invoke(position)

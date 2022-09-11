@@ -4,16 +4,33 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:id="@+id/logo"
     tools:context=".presentation.activity.SplashActivity">
 
     <ImageView
         android:id="@+id/logo_image"
-        android:layout_width="@dimen/_100sdp"
-        android:layout_height="@dimen/_100sdp"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/_50sdp"
+        android:layout_margin="@dimen/_12sdp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:src="@drawable/email_icon"
+        android:src="@drawable/antino"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/avengers"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_marginStart="@dimen/_24sdp"
+        android:text="Avengers"
+        android:textSize="@dimen/_16sdp"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        android:layout_marginTop="-16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/logo_image" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

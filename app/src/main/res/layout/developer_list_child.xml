@@ -28,6 +28,7 @@
 
             <ImageView
                 android:id="@+id/developer_image"
+                android:src="@drawable/ic_user_profile_svgrepo_com"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" />
         </androidx.cardview.widget.CardView>
@@ -44,8 +45,17 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
+                android:layout_marginBottom="@dimen/_4sdp"
                 android:singleLine="true"
                 android:id="@+id/email_id"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:textColor="#FAA701"
+                android:singleLine="true"
+                android:id="@+id/dev_tech"/>
+
 
 
 

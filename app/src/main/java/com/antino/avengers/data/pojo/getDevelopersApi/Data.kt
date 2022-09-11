@@ -11,5 +11,14 @@ data class Data(
     @SerializedName("name")
     val name: String?,
     @SerializedName("phone")
-    val phone: String?
+    val phone: String?,
+    @SerializedName("age")
+    val age: Int?,
+    @SerializedName("profile")
+    val profile: String?,
+    @SerializedName("experience")
+    val experience: String?,
+    @SerializedName("project")
+    val project: Int?
+
 )

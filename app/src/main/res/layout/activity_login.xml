@@ -3,86 +3,124 @@
     android:layout_height="match_parent"
     tools:context=".presentation.activity.LoginActivity">
 
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:orientation="vertical"
-        android:gravity="center"
         android:padding="16dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0">
 
-        <TextView
-            android:id="@+id/appName"
-            android:layout_width="wrap_content"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraintLayout2"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Antino Avengers"
-            android:textSize="34sp"
-            android:textStyle="bold"
+            android:layout_marginTop="@dimen/_16sdp"
+            android:orientation="vertical"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/logo_image"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_50sdp"
+                android:layout_margin="@dimen/_12sdp"
+                android:src="@drawable/antino"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/avengers"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginStart="@dimen/_24sdp"
+                android:layout_marginTop="-16dp"
+                android:gravity="center"
+                android:text="Avengers"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_16sdp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/logo_image" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
 
         <TextView
             android:id="@+id/login_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_36sdp"
+
             android:text="Please Login"
             android:textSize="24sp"
-            android:layout_marginTop="8dp"
+            android:layout_marginStart="@dimen/_8sdp"
             android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintStart_toStartOf="@+id/linearLayout2"
+            app:layout_constraintTop_toBottomOf="@+id/constraintLayout2" />
+
         <LinearLayout
+            android:id="@+id/linearLayout2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="textEmailAddress"
-            android:layout_marginTop="@dimen/_16sdp"
-            android:paddingTop="@dimen/_8sdp"
-            android:paddingBottom="@dimen/_12sdp"
-            android:paddingStart="20dp"
-            android:paddingEnd="@dimen/_22sdp"
             android:background="@drawable/curve_background"
+            android:inputType="textEmailAddress"
+            android:paddingStart="20dp"
+            android:layout_marginTop="@dimen/_12sdp"
+            android:paddingTop="@dimen/_8sdp"
+            android:paddingEnd="@dimen/_22sdp"
 
-            >
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/layout_email"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:paddingBottom="@dimen/_12sdp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/login_text">
 
-            >
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/etEmail"
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/layout_email"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@android:color/transparent"
-                android:drawableEnd="@drawable/email_icon"
+                android:layout_height="wrap_content"
 
-                android:hint="Enter Email"
-                android:gravity="center_vertical"
-                android:imeOptions="actionDone"
-                android:inputType="textEmailAddress"
-                android:text=""
-                />
+                >
 
-        </com.google.android.material.textfield.TextInputLayout>
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etEmail"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@android:color/transparent"
+                    android:drawableEnd="@drawable/email_icon"
+
+                    android:gravity="center_vertical"
+                    android:hint="Enter Email"
+                    android:imeOptions="actionDone"
+                    android:inputType="textEmailAddress"
+                    android:text="" />
+
+            </com.google.android.material.textfield.TextInputLayout>
         </LinearLayout>
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/layout_oassword"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_12sdp"
-            android:paddingStart="@dimen/_12sdp"
-            android:paddingEnd="@dimen/_12sdp"
-            app:passwordToggleEnabled="true"
             android:background="@drawable/curve_background"
-            app:passwordToggleTint="@color/black"
+            android:paddingStart="@dimen/_12sdp"
             android:paddingTop="@dimen/_6sdp"
+            android:paddingEnd="@dimen/_12sdp"
             android:paddingBottom="@dimen/_12sdp"
-            >
+            android:layout_marginTop="@dimen/_12sdp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout2"
+            app:passwordToggleEnabled="true"
+            app:passwordToggleTint="@color/black">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/etpassword"
@@ -90,40 +128,45 @@
                 android:layout_height="match_parent"
                 android:background="@android:color/transparent"
 
-                android:hint="Enter Password"
                 android:gravity="center_vertical"
+                android:hint="Enter Password"
                 android:imeOptions="actionDone"
                 android:inputType="textPassword"
-                android:text=""
-                />
+                android:text="" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
         <Button
             android:id="@+id/login_button"
             android:layout_width="match_parent"
+            android:layout_marginTop="@dimen/_12sdp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_16sdp"
-            android:text="LogIn"
-            android:textStyle="bold"
+            android:background="@drawable/button_curve_background"
+            android:backgroundTint="@color/black"
             android:paddingTop="@dimen/_16sdp"
-            android:textColor="@color/white"
-            android:backgroundTint="#7088E1"
             android:paddingBottom="@dimen/_16sdp"
-            android:background="@drawable/button_curve_background"/>
+            android:text="LogIn"
+            android:textColor="@color/white"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/layout_oassword" />
 
         <TextView
             android:id="@+id/forgot_passowrd_btn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Forgot Passowrd?"
             android:gravity="center"
-            android:layout_marginTop="@dimen/_12sdp"
+            android:text="Forgot Passowrd?"
             android:textColor="#1C41C7"
-            android:textStyle="bold"/>
+            android:layout_marginTop="@dimen/_8sdp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/login_button" />
 
 
-    </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

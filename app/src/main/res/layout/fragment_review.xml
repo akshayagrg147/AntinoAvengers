@@ -13,7 +13,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:gravity="center"
-        android:text="DeveloperName Name"
+        android:text=""
         android:textColor="@color/white"
         android:textSize="@dimen/_18sdp"
         android:textStyle="bold"
@@ -28,7 +28,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:gravity="center"
-        android:text="something@gmail.com"
+        android:text=""
         android:textColor="@color/white"
         android:textSize="@dimen/_14sdp"
         android:textStyle="bold"
@@ -42,7 +42,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:gravity="center"
-        android:text="9999999991"
+        android:text=""
         android:textColor="@color/white"
         android:textSize="@dimen/_14sdp"
         android:textStyle="bold"
@@ -50,7 +50,21 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/developer_email" />
 
-    <LinearLayout
+    <TextView
+        android:id="@+id/year_exp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:text=""
+        android:textColor="@color/white"
+        android:textSize="@dimen/_14sdp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/developer_mobile" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:background="@drawable/top_right_left_curve"
@@ -60,18 +74,28 @@
         android:layout_marginTop="@dimen/_16sdp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/developer_mobile">
+        app:layout_constraintTop_toBottomOf="@+id/year_exp">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/developer_rv"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/_8sdp" />
+            android:layout_height="0dp"
+            android:layout_margin="@dimen/_8sdp"
+            app:layout_constraintBottom_toBottomOf="@+id/progress_bar"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:layout_editor_absoluteX="10dp" />
+
+        <include
+            android:id="@+id/progress_bar"
+            layout="@layout/progress"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <!--        <com.google.android.material.floatingactionbutton.FloatingActionButton-->
         <!--            android:layout_width="wrap_content"-->
         <!--            android:layout_height="wrap_content"-->
-    </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
 
 
 

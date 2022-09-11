@@ -70,8 +70,8 @@ class LoginActivity : AppCompatActivity() {
 
     private fun setUpObserver() {
         loginViewModel.dataAddUser.observe(this) {
-            Log.d("LoginActivity", Gson().toJson(it))
-//            try {
+            Log.d("LoginActivity:0", Gson().toJson(it))
+            if (it!= null){
                 if (it.status == 200) {
 
                     PreferenceUtils.putObject(it, PREF_LOGGED_IN_USER)
@@ -83,6 +83,10 @@ class LoginActivity : AppCompatActivity() {
 
 
                 }
+
+            }else{
+                toast("something went wrong")
+            }
 
 //            } catch(e:Exception) {
 //                Toast.makeText(this, "Something Went Wrong", Toast.LENGTH_SHORT).show()

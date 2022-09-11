@@ -4,8 +4,13 @@ package com.antino.avengers.Others
 import android.app.Application
 import android.content.Context
 import android.content.SharedPreferences
+import com.antino.avengers.Utils.common.PREF_Developer
 import com.antino.avengers.Utils.common.PREF_LOGGED_IN_USER
+import com.antino.avengers.Utils.common.PREF_ProjectDetails
+import com.antino.avengers.data.pojo.getDevelopersApi.Data
+import com.antino.avengers.data.pojo.getDevelopersApi.GetDevelopersResponse
 import com.antino.avengers.data.pojo.loginApi.response.LoginResponse
+import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 
 object PreferenceUtils {
@@ -153,5 +158,33 @@ object PreferenceUtils {
             getObject<LoginResponse>(PREF_LOGGED_IN_USER)
         else null
     }
+
+    fun getDeveloperDetails(): Data? {
+        return if (getObject<Data>(PREF_Developer) != null)
+            getObject<Data>(PREF_Developer)
+        else null
+    }
+    fun putDeveloperDetails(list: Data) {
+        val editor = mLocalPreferences.edit()
+        val gson = Gson()
+        val json = gson.toJson(list)
+        editor.putString(PREF_Developer, json)
+        editor.apply()
+    }
+
+
+    fun PutProject(): String? {
+        return if (getObject<String>(PREF_ProjectDetails) != null)
+            getObject<String>(PREF_ProjectDetails)
+        else null
+    }
+    fun getProject(list: String) {
+        val editor = mLocalPreferences.edit()
+        val gson = Gson()
+        val json = gson.toJson(list)
+        editor.putString(PREF_ProjectDetails, json)
+        editor.apply()
+    }
+
 }
 

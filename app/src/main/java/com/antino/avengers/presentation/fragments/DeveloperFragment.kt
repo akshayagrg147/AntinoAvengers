@@ -4,16 +4,25 @@ import android.content.Context
 import android.content.res.ColorStateList
 import android.graphics.Color
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
+import android.widget.TextView
 import androidx.fragment.app.Fragment
+import androidx.navigation.Navigation
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.antino.avengers.Others.PreferenceUtils
+import com.antino.avengers.R
+import com.antino.avengers.Utils.common.PREF_Developer
+import com.antino.avengers.Utils.common.PREF_LOGGED_IN_USER
 import com.antino.avengers.Utils.common.get_developers_api
+import com.antino.avengers.Utils.gone
 import com.antino.avengers.Utils.toast
+import com.antino.avengers.Utils.visible
 import com.antino.avengers.data.pojo.getDevelopersApi.GetDevelopersRequest
 import com.antino.avengers.databinding.FragmentDeveloperBinding
 import com.antino.avengers.presentation.Adapter.DeveloperAdapter
@@ -24,7 +33,7 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class DeveloperFragment : Fragment() {
     private lateinit var binding: FragmentDeveloperBinding
-    private lateinit var manager: ProjectManagerAdapter
+//    private lateinit var manager: ProjectManagerAdapter
     private val developerViewModel by viewModel<DeveloperViewModel<Any?>>()
     private lateinit var layoutManager: RecyclerView.LayoutManager
 
@@ -41,86 +50,89 @@ class DeveloperFragment : Fragment() {
     ): View? {
         binding = FragmentDeveloperBinding.inflate(inflater, container, false)
 
+        setUpObserver()
+
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.fab.setOnClickListener {
-
-            val dialog = BottomSheetDialog(requireContext())
-            val view = layoutInflater.inflate(com.antino.avengers.R.layout.mail_bottom_sheet, null)
-            val text_subject = view.findViewById<EditText>(com.antino.avengers.R.id.text_subject)
-            val text_content = view.findViewById<EditText>(com.antino.avengers.R.id.text_content)
-            val submit = view.findViewById<Button>(com.antino.avengers.R.id.submit)
-            val custom = view.findViewById<Button>(com.antino.avengers.R.id.custom)
-            val review = view.findViewById<Button>(com.antino.avengers.R.id.review)
-            custom.backgroundTintList =
-                ColorStateList.valueOf(Color.parseColor("#00adb5"))
-            review.backgroundTintList= ColorStateList.valueOf(Color.parseColor("#7088E1"))
-            text_subject.setText("Request for Developer(s) review")
-            text_content.setText("Hi,\n We hope you are doing good. This E-mail is to request general feedback of the developer(s) working on your project. Click on the given link for feedback form")
-
-            submit.setOnClickListener {
-                dialog.dismiss()
-            }
-            custom.setOnClickListener{
-                custom.backgroundTintList =
-                    ColorStateList.valueOf(Color.parseColor("#7088E1"))
-                review.backgroundTintList= ColorStateList.valueOf(Color.parseColor("#00adb5"))
-                text_subject.setText("")
-                text_content.setText("")
-
-            }
-            review.setOnClickListener{
-                custom.backgroundTintList =
-                    ColorStateList.valueOf(Color.parseColor("#00adb5"))
-                review.backgroundTintList= ColorStateList.valueOf(Color.parseColor("#7088E1"))
-                text_subject.setText("Request for Developer(s) review")
-                text_content.setText("Hi,\n We hope you are doing good. This E-mail is to request general feedback of the developer(s) working on your project. Click on the given link for feedback form")
-
-            }
-
-
-            dialog.setCancelable(true)
-            dialog.setContentView(view)
-
-            dialog.show()
-        }
         //getReviewAPI()
-
         this.arguments?.let {
-
-
             getDevelopersApi(requireContext(),it.getString("pass_id") ?: "")
-            setUpObserver()
+            Log.d("devdetail:", "${it.getString("ProjectName")}")
+
+            binding.projectName.text= it.getString("ProjectName")
+            binding.startDate.text=it.getString("ProjectDate")
         }
 
 
     }
 
-//    private fun getReviewAPI() {
-//
-//        Toast.makeText(requireContext(), bundle!!.getString("Idpassed").toString(), Toast.LENGTH_SHORT).show()
-//        var getReviewsRequest = GetReviewsRequest(
-//            bundle!!.getString("Idpassed").toString()
-//        )
-//
-//        developerViewModel.getReviewsApi(getReviewsRequest, get_reviews_api)
-//    }
 
     private fun setUpObserver() {
-       /* developerViewModel.getReviews.observe(viewLifecycleOwner) {
-            requireContext().toast(Gson().toJson(it))
-            var list = mutableListOf<Data?>()
-            list = it.data ?: mutableListOf()
-            //setAdapter(list)
-        }*/
         developerViewModel.getDevelopers.observe(viewLifecycleOwner) {
             try {
+                binding.fab.visible()
+                binding.progressBar.root.gone()
                 var list = mutableListOf<com.antino.avengers.data.pojo.getDevelopersApi.Data?>()
                 list = it.data?.toMutableList() ?: mutableListOf()
+                val data= it
                 setAdapter(list)
+
+                binding.fab.setOnClickListener {
+
+                    val dialog = BottomSheetDialog(requireContext())
+                    val view = layoutInflater.inflate(com.antino.avengers.R.layout.mail_bottom_sheet, null)
+                    val text_subject = view.findViewById<EditText>(com.antino.avengers.R.id.text_subject)
+                    val text_content = view.findViewById<EditText>(com.antino.avengers.R.id.text_content)
+                    val submit = view.findViewById<Button>(com.antino.avengers.R.id.submit)
+                    val custom = view.findViewById<Button>(com.antino.avengers.R.id.custom)
+                    val review = view.findViewById<Button>(com.antino.avengers.R.id.review)
+                    val lastReviewText = view.findViewById<TextView>(com.antino.avengers.R.id.last_review)
+                    custom.backgroundTintList =
+                        ColorStateList.valueOf(Color.parseColor("#00adb5"))
+                    review.backgroundTintList= ColorStateList.valueOf(Color.parseColor("#7088E1"))
+                    text_subject.setText("Request for Developer(s) review")
+                    text_content.setText("Hi,\n We hope you are doing good. This E-mail is to request general feedback of the developer(s) working on your project. Click on the given link for feedback form")
+                    if (!data.latestRequest.isNullOrEmpty()){
+                        lastReviewText.visible()
+
+                        if (data.latestRequest.contains("T")){
+                            val text= data.latestRequest.split("T")
+                            lastReviewText.text= "Last Review Request: ${text[0]}"
+                        }else{
+                            lastReviewText.text= data.latestRequest
+                        }
+                    }else{
+                        lastReviewText.gone()
+                    }
+                    submit.setOnClickListener {
+                        requireContext().toast("Email Sent")
+                        dialog.dismiss()
+                    }
+                    custom.setOnClickListener{
+                        custom.backgroundTintList =
+                            ColorStateList.valueOf(Color.parseColor("#7088E1"))
+                        review.backgroundTintList= ColorStateList.valueOf(Color.parseColor("#00adb5"))
+                        text_subject.setText("")
+                        text_content.setText("")
+
+                    }
+                    review.setOnClickListener{
+                        custom.backgroundTintList =
+                            ColorStateList.valueOf(Color.parseColor("#00adb5"))
+                        review.backgroundTintList= ColorStateList.valueOf(Color.parseColor("#7088E1"))
+                        text_subject.setText("Request for Developer(s) review")
+                        text_content.setText("Hi,\n We hope you are doing good. This E-mail is to request general feedback of the developer(s) working on your project. Click on the given link for feedback form")
+
+                    }
+                    dialog.setCancelable(true)
+                    dialog.setContentView(view)
+
+                    dialog.show()
+                }
+
             } catch(e: Exception) {
                 requireActivity().toast("Something Went Wrong")
             }
@@ -133,6 +145,15 @@ class DeveloperFragment : Fragment() {
         val developerAdapter =
             DeveloperAdapter(list, requireContext())
         binding.developerRv.adapter = developerAdapter
+
+        developerAdapter.setOnItemClickListener {
+            val bundle = Bundle()
+            bundle.putString("pass_id", list[it]?.id!!.toString())
+            Log.d("devdetail:", "${list[it]}")
+            PreferenceUtils.putDeveloperDetails(list[it]!!)
+            Navigation.findNavController(binding.root)
+                .navigate(R.id.action_developer_to_review, bundle)
+        }
     }
 
     private fun getDevelopersApi(requireContext: Context, toString: String) {
