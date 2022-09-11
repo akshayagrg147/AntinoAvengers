@@ -88,9 +88,15 @@ class DeveloperFragment : Fragment() {
             dialog.show()
         }
         //getReviewAPI()
-        val bundle = arguments
-        getDevelopersApi(requireContext(), bundle!!.getString("Idpassed").toString())
-        setUpObserver()
+
+        this.arguments?.let {
+
+
+            getDevelopersApi(requireContext(),it.getString("pass_id") ?: "")
+            setUpObserver()
+        }
+
+
     }
 
 //    private fun getReviewAPI() {

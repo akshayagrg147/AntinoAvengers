@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
+import androidx.navigation.Navigation
 import com.antino.avengers.Others.PreferenceUtils
 import com.antino.avengers.R
 import com.antino.avengers.databinding.ActivityMainBinding
@@ -14,53 +15,29 @@ import com.antino.avengers.presentation.fragments.ProjectManagerFragment
 import com.antino.avengers.presentation.fragments.VPFragment
 
 
-class HomeActivity : AppCompatActivity() ,
-    ProjectManagerFragment.FragmentToActivity{
+class HomeActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main)
 
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
-        binding.lifecycleOwner = this@HomeActivity
-        binding.executePendingBindings()
-       if(IsManger()=="manager"){
-           val frag = ProjectManagerFragment()
-           val manager: FragmentManager = supportFragmentManager
-           val transaction: FragmentTransaction = manager.beginTransaction()
-           transaction.add(R.id.frameLayout, frag, "Manager Fragment")
-           transaction.commit()
-       }
-        else {
-           val frag = VPFragment()
-           val manager: FragmentManager = supportFragmentManager
-           val transaction: FragmentTransaction = manager.beginTransaction()
-           transaction.add(R.id.frameLayout, frag, "VP Fragment")
-           transaction.commit()
-       }
+//       if(IsManger()=="manager"){
+//           Navigation.findNavController(binding.root)
+//               .navigate(R.id.action_pm_to_developer)
+//       }
+//        else {
+//           Navigation.findNavController(binding.root)
+//               .navigate(R.id.action_pm_to_developer)
+//       }
 
     }
-    private fun IsManger():String{
-        val loginPref = PreferenceUtils.getLogin()
-       return loginPref!!.role?:""
-    }
-
-    override fun clicked(data: Int) {
-        Log.d("listsize:12", "${data}")
+//    private fun IsManger():String{
+//        val loginPref = PreferenceUtils.getLogin()
+//       return loginPref!!.role?:""
+//    }
 
 
-        if(data>=0){
-            val frag = DeveloperFragment()
-            val manager: FragmentManager = supportFragmentManager
-            val transaction: FragmentTransaction = manager.beginTransaction()
 
-            val bundle = Bundle()
-            bundle.putString("Idpassed", data.toString())
 
-            frag.arguments = bundle
 
-            transaction.replace(R.id.frameLayout, frag, "VP Fragment")
-            transaction.commit()
-        }
-
-    }
 }

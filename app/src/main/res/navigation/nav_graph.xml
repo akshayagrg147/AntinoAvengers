@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/projectmanager_fragment">
+    <fragment
+        android:id="@+id/projectmanager_fragment"
+        android:name="com.antino.avengers.presentation.fragments.ProjectManagerFragment"
+        android:label="VP Fragment" >
+        <action
+            android:id="@+id/action_pm_to_developer"
+            app:destination="@id/developerfragment" />
+
+    </fragment>
+    <fragment
+        android:id="@+id/developerfragment"
+        android:name="com.antino.avengers.presentation.fragments.DeveloperFragment"
+        android:label="Second Fragment" >
+
+    </fragment>
+
+</navigation>
