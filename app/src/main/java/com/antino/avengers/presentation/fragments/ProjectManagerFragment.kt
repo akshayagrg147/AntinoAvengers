@@ -10,12 +10,11 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation
-
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout.OnRefreshListener
 import com.antino.avengers.LoginViewModel
 import com.antino.avengers.Others.PreferenceUtils
 import com.antino.avengers.Others.Utils
 import com.antino.avengers.R
-import com.antino.avengers.Utils.common.PREF_ProjectDetails
 import com.antino.avengers.Utils.common.get_all_projects
 import com.antino.avengers.Utils.gone
 import com.antino.avengers.Utils.toast
@@ -26,10 +25,9 @@ import com.antino.avengers.databinding.FragmentProjectManagerBinding
 import com.antino.avengers.presentation.Adapter.ProjectManagerAdapter
 import com.antino.avengers.presentation.Adapter.VicePresidentAdapter
 import com.antino.avengers.presentation.ViewModel.DeveloperViewModel
-import com.antino.avengers.presentation.activity.HomeActivity
 import com.antino.avengers.presentation.activity.LoginActivity
-import com.bumptech.glide.Glide
 import org.koin.androidx.viewmodel.ext.android.viewModel
+
 
 class ProjectManagerFragment : Fragment() {
     private val viemodal by viewModel<LoginViewModel<Any?>>()
@@ -59,6 +57,11 @@ class ProjectManagerFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentProjectManagerBinding.inflate(inflater, container, false)
+        binding.swipping.setOnRefreshListener(OnRefreshListener {
+            allProjectsObserver()
+            setUpObserver()
+            binding.swipping.setRefreshing(false)
+        })
         allProjectsObserver()
         setUpObserver()
         return binding.root
@@ -92,7 +95,7 @@ class ProjectManagerFragment : Fragment() {
 
     private fun setUpObserver() {
         viemodal.manager_livedata.observe(requireActivity()) {
-            binding.progressBar.root.gone()
+            binding.shimmerViewContainerheader.root.gone()
 
             if (it != null){
                 if (it.status == 200) {
@@ -148,7 +151,7 @@ class ProjectManagerFragment : Fragment() {
 
     private fun allProjectsObserver() {
         developerViewModel.getAllProjects.observe(viewLifecycleOwner) {
-            binding.progressBar.root.gone()
+            binding.shimmerViewContainerheader.root.gone()
 
             try {
                 setUpAdapter(it.data)

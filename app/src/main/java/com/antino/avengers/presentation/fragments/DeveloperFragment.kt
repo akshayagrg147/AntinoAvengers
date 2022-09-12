@@ -15,6 +15,7 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.antino.avengers.Others.PreferenceUtils
 import com.antino.avengers.R
 import com.antino.avengers.Utils.common.PREF_Developer
@@ -49,7 +50,10 @@ class DeveloperFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentDeveloperBinding.inflate(inflater, container, false)
-
+        binding.swipping.setOnRefreshListener(SwipeRefreshLayout.OnRefreshListener {
+            setUpObserver()
+            binding.swipping.setRefreshing(false)
+        })
         setUpObserver()
 
         return binding.root
@@ -74,7 +78,7 @@ class DeveloperFragment : Fragment() {
         developerViewModel.getDevelopers.observe(viewLifecycleOwner) {
             try {
                 binding.fab.visible()
-                binding.progressBar.root.gone()
+                binding.shimmerViewContainerheader.root.visibility=View.GONE
                 var list = mutableListOf<com.antino.avengers.data.pojo.getDevelopersApi.Data?>()
                 list = it.data?.toMutableList() ?: mutableListOf()
                 val data= it

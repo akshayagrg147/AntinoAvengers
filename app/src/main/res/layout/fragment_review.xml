@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"    xmlns:app="http://schemas.android.com/apk/res-auto"    xmlns:tools="http://schemas.android.com/tools"    android:layout_width="match_parent"
+<androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"    xmlns:app="http://schemas.android.com/apk/res-auto"    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/swipping"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+<androidx.constraintlayout.widget.ConstraintLayout    android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@color/ThemePrimaryColor"
@@ -85,11 +90,17 @@
             app:layout_constraintTop_toTopOf="parent"
             tools:layout_editor_absoluteX="10dp" />
 
+<!--        <include-->
+<!--            android:id="@+id/progress_bar"-->
+<!--            layout="@layout/progress"-->
+<!--            app:layout_constraintBottom_toBottomOf="parent"-->
+<!--            app:layout_constraintTop_toTopOf="parent" />-->
         <include
-            android:id="@+id/progress_bar"
-            layout="@layout/progress"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:id="@+id/shimmer_view_containerheader"
+            layout="@layout/developer_details"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            />
 
         <!--        <com.google.android.material.floatingactionbutton.FloatingActionButton-->
         <!--            android:layout_width="wrap_content"-->
@@ -104,3 +115,4 @@
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.swiperefreshlayout.widget.SwipeRefreshLayout>

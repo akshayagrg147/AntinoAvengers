@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.antino.avengers.Others.PreferenceUtils
 import com.antino.avengers.R
 import com.antino.avengers.Utils.common.get_reviews_api
@@ -44,6 +45,11 @@ class ReviewFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        binding.swipping.setOnRefreshListener(SwipeRefreshLayout.OnRefreshListener {
+            getReviewAPI()
+            setUpObserver()
+            binding.swipping.setRefreshing(false)
+        })
         getReviewAPI()
         setUpObserver()
     }
@@ -63,7 +69,7 @@ class ReviewFragment : Fragment() {
     private fun setUpObserver() {
          developerViewModel.getReviews.observe(viewLifecycleOwner) {
              Log.d("reviewsResponse", it.toString())
-            binding.progressBar.root.gone()
+             binding.shimmerViewContainerheader.root.visibility=View.GONE
              if (it!= null){
                  if (!it.data.isNullOrEmpty()){
                      var list = mutableListOf<Data?>()
