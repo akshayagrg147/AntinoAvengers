@@ -20,10 +20,12 @@ import com.antino.avengers.Others.PreferenceUtils
 import com.antino.avengers.R
 import com.antino.avengers.Utils.common.PREF_Developer
 import com.antino.avengers.Utils.common.PREF_LOGGED_IN_USER
+import com.antino.avengers.Utils.common.ask_for_review
 import com.antino.avengers.Utils.common.get_developers_api
 import com.antino.avengers.Utils.gone
 import com.antino.avengers.Utils.toast
 import com.antino.avengers.Utils.visible
+import com.antino.avengers.data.pojo.AskForReview.Request.AskForReviewRequest
 import com.antino.avengers.data.pojo.getDevelopersApi.GetDevelopersRequest
 import com.antino.avengers.databinding.FragmentDeveloperBinding
 import com.antino.avengers.presentation.Adapter.DeveloperAdapter
@@ -37,7 +39,7 @@ class DeveloperFragment : Fragment() {
 //    private lateinit var manager: ProjectManagerAdapter
     private val developerViewModel by viewModel<DeveloperViewModel<Any?>>()
     private lateinit var layoutManager: RecyclerView.LayoutManager
-
+    var id = ""
     var con: Context? = null
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -55,7 +57,6 @@ class DeveloperFragment : Fragment() {
             binding.swipping.setRefreshing(false)
         })
         setUpObserver()
-
         return binding.root
     }
 
@@ -63,6 +64,7 @@ class DeveloperFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         //getReviewAPI()
         this.arguments?.let {
+            id = it.getString("pass_id") ?: ""
             getDevelopersApi(requireContext(),it.getString("pass_id") ?: "")
             Log.d("devdetail:", "${it.getString("ProjectName")}")
 
@@ -112,6 +114,7 @@ class DeveloperFragment : Fragment() {
                         lastReviewText.gone()
                     }
                     submit.setOnClickListener {
+                        callAskForReviewApi(text_content.text.toString(), text_subject.text.toString())
                         requireContext().toast("Email Sent")
                         dialog.dismiss()
                     }
@@ -138,6 +141,19 @@ class DeveloperFragment : Fragment() {
                 }
 
             } catch(e: Exception) {
+                requireActivity().toast("Something Went Wrong")
+            }
+        }
+
+        developerViewModel.askForReview.observe(viewLifecycleOwner) {
+            try {
+                if(it.status == 200) {
+                    requireActivity().toast(it.data)
+                }
+                /*else {
+                    requireActivity().toast(it.data)
+                }*/
+            } catch (e: Exception){
                 requireActivity().toast("Something Went Wrong")
             }
         }
@@ -168,6 +184,16 @@ class DeveloperFragment : Fragment() {
 
         fun clicked(data: Int)
 
+    }
+
+    private fun callAskForReviewApi(content:String, subject: String) {
+        val request = AskForReviewRequest(
+            content = content,
+            subject = subject,
+            clientId = id,
+            clientEmail = null
+        )
+        developerViewModel.askForReview(request, ask_for_review)
     }
 
 }

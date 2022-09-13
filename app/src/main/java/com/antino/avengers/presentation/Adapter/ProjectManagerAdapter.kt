@@ -7,9 +7,12 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.antino.avengers.ProjectManagersModel
 import com.antino.avengers.Utils.gone
+import com.antino.avengers.Utils.toast
+import com.antino.avengers.Utils.visible
 import com.antino.avengers.data.pojo.getprojectbymanager.response.getProjectManagerResponse
 import com.antino.avengers.databinding.ManagerItemsBinding
 import com.antino.avengers.databinding.ProjectListContainerBinding
+import com.bumptech.glide.Glide
 
 
 class ProjectManagerAdapter(
@@ -52,7 +55,10 @@ class ProjectManagerAdapter(
             binding.projectDiscription.text=categories1?.brief
             binding.projectName.text=categories1?.name
             binding.projectStartDate.gone()
+            binding.iconPic
 
+            Glide.with(context)
+                .load(categories1?.manager?.image).into(binding.iconPic)
         }
     }
     override fun getItemCount(): Int {

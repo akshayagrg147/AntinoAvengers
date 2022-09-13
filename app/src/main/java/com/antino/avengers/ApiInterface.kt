@@ -1,6 +1,8 @@
 package com.antino.avengers
 
 import com.antino.avengers.Utils.common.*
+import com.antino.avengers.data.pojo.AskForReview.Request.AskForReviewRequest
+import com.antino.avengers.data.pojo.AskForReview.Response.AskForReviewResponse
 import com.antino.avengers.data.pojo.getAllProjects.GetAllProjectsResponse
 import com.antino.avengers.data.pojo.getprojectbymanager.request.ByManagerRequest
 import com.antino.avengers.data.pojo.getprojectbymanager.response.getProjectManagerResponse
@@ -36,6 +38,11 @@ interface ApiInterface {
     @Headers("Content-Type: application/json")
     @POST(get_all_projects)
     suspend fun getAllProjects(): Response<GetAllProjectsResponse>
+
+
+    @Headers("Content-Type: application/json")
+    @POST(ask_for_review)
+    suspend fun askForReview(@Body askForReviewRequest: AskForReviewRequest): Response<AskForReviewResponse>
 
 
 }

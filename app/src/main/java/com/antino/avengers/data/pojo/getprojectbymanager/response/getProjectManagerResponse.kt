@@ -40,7 +40,9 @@ data class getProjectManagerResponse(
             @SerializedName("name")
             val name: String?,
             @SerializedName("phone")
-            val phone: String?
+            val phone: String?,
+            @SerializedName("image")
+            val image: String?
         )
     }
 }
