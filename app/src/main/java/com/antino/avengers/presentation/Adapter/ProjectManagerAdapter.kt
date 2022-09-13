@@ -55,10 +55,18 @@ class ProjectManagerAdapter(
             binding.projectDiscription.text=categories1?.brief
             binding.projectName.text=categories1?.name
             binding.projectStartDate.gone()
-            binding.iconPic
+//            var imange= categories1?.manager?.image
+//            if (!imange.isNullOrEmpty()){
+//                if (imange.contains("http")){
+//                    val temp=  imange.split("http")[0].replace("http", "https")
+//                    var temp2= "${temp[0]}+${temp[1]}"
+//                    imange= temp2
+//                }
+//            }
+//            Glide.with(context).load(imange).into(binding.iconPic);
 
-            Glide.with(context)
-                .load(categories1?.manager?.image).into(binding.iconPic)
+
+
         }
     }
     override fun getItemCount(): Int {

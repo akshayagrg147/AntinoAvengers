@@ -58,8 +58,14 @@ class ProjectManagerFragment : Fragment() {
     ): View? {
         binding = FragmentProjectManagerBinding.inflate(inflater, container, false)
         binding.swipping.setOnRefreshListener(OnRefreshListener {
-            allProjectsObserver()
-            setUpObserver()
+            if (IsManger() == "manager") {
+                viemodal.managerId(
+                    ByManagerRequest(email = PreferenceUtils.getString("manager")),
+                    "",
+                )
+            } else {
+                callAllProjectsApi()
+            }
             binding.swipping.setRefreshing(false)
         })
         allProjectsObserver()
@@ -74,6 +80,7 @@ class ProjectManagerFragment : Fragment() {
             val intent = Intent(requireContext(), LoginActivity::class.java)
             startActivity(intent)
             PreferenceUtils.clearAllPreferences()
+            requireActivity().finish()
             return
         }
         if (IsManger() == "manager") {
@@ -90,6 +97,8 @@ class ProjectManagerFragment : Fragment() {
             val intent = Intent(requireContext(), LoginActivity::class.java)
             startActivity(intent)
             PreferenceUtils.clearAllPreferences()
+            requireActivity().finish()
+
         }
     }
 
