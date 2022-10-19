@@ -99,13 +99,13 @@ class DeveloperViewModel<T : Any?>(private val developerRepository: DeveloperRep
         }
     }
 
-    fun getAllProjects(apiType: String) {
+    fun getAllProjects(token:String,apiType: String) {
         this.apiType = apiType
         _loadingState.postValue(LoadingState.LOADING)
 
         viewModelScope.launch(Dispatchers.IO) {
             _getAllProjects.postValue(
-                developerRepository.getAllProjects().body()
+                developerRepository.getAllProjects(token).body()
             )
         }
     }

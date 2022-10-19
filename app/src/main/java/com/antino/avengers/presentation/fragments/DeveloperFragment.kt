@@ -18,10 +18,7 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.antino.avengers.Others.PreferenceUtils
 import com.antino.avengers.R
-import com.antino.avengers.Utils.common.PREF_Developer
-import com.antino.avengers.Utils.common.PREF_LOGGED_IN_USER
-import com.antino.avengers.Utils.common.ask_for_review
-import com.antino.avengers.Utils.common.get_developers_api
+import com.antino.avengers.Utils.common.*
 import com.antino.avengers.Utils.gone
 import com.antino.avengers.Utils.toast
 import com.antino.avengers.Utils.visible
@@ -41,6 +38,7 @@ class DeveloperFragment : Fragment() {
     private lateinit var layoutManager: RecyclerView.LayoutManager
     var id = ""
     var con: Context? = null
+    private var accessToken = ""
     override fun onAttach(context: Context) {
         super.onAttach(context)
         con = context
@@ -52,6 +50,7 @@ class DeveloperFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentDeveloperBinding.inflate(inflater, container, false)
+        accessToken = "Bearer ${PreferenceUtils.getString(PREF_USER_TOKEN)}"
         binding.swipping.setOnRefreshListener(SwipeRefreshLayout.OnRefreshListener {
             setUpObserver()
             binding.swipping.setRefreshing(false)
@@ -114,7 +113,7 @@ class DeveloperFragment : Fragment() {
                         lastReviewText.gone()
                     }
                     submit.setOnClickListener {
-                        callAskForReviewApi(text_content.text.toString(), text_subject.text.toString())
+                        callAskForReviewApi(accessToken,text_content.text.toString(), text_subject.text.toString())
                         requireContext().toast("Email Sent")
                         dialog.dismiss()
                     }
@@ -178,7 +177,7 @@ class DeveloperFragment : Fragment() {
 
     private fun getDevelopersApi(requireContext: Context, toString: String) {
         var getDevelopersRequest = GetDevelopersRequest(toString)
-        developerViewModel.getDevelopersApi(getDevelopersRequest, get_developers_api)
+        developerViewModel.getDevelopersApi(accessToken,getDevelopersRequest, get_developers_api)
     }
     interface DevelopertoActivity {
 

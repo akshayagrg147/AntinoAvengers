@@ -15,6 +15,7 @@ import com.antino.avengers.LoginViewModel
 import com.antino.avengers.Others.PreferenceUtils
 import com.antino.avengers.Others.Utils
 import com.antino.avengers.R
+import com.antino.avengers.Utils.common.PREF_USER_TOKEN
 import com.antino.avengers.Utils.common.get_all_projects
 import com.antino.avengers.Utils.gone
 import com.antino.avengers.Utils.toast
@@ -35,6 +36,7 @@ class ProjectManagerFragment : Fragment() {
 
     var list: List<getProjectManagerResponse.Data?> = emptyList()
     private lateinit var binding: FragmentProjectManagerBinding
+    private var accessToken = ""
 
     var con: Context? = null
 
@@ -57,11 +59,13 @@ class ProjectManagerFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentProjectManagerBinding.inflate(inflater, container, false)
+        accessToken = "Bearer ${PreferenceUtils.getString(PREF_USER_TOKEN)}"
         binding.swipping.setOnRefreshListener(OnRefreshListener {
             if (IsManger() == "manager") {
                 viemodal.managerId(
+                    accessToken,
                     ByManagerRequest(email = PreferenceUtils.getString("manager")),
-                    "",
+                    ""
                 )
             } else {
                 callAllProjectsApi()
@@ -85,8 +89,9 @@ class ProjectManagerFragment : Fragment() {
         }
         if (IsManger() == "manager") {
             viemodal.managerId(
+                accessToken,
                 ByManagerRequest(email = PreferenceUtils.getString("manager")),
-                "",
+                ""
                 )
         } else {
             callAllProjectsApi()
@@ -155,7 +160,7 @@ class ProjectManagerFragment : Fragment() {
 
 
     private fun callAllProjectsApi() {
-        developerViewModel.getAllProjects(get_all_projects)
+        developerViewModel.getAllProjects(accessToken,get_all_projects)
     }
 
     private fun allProjectsObserver() {

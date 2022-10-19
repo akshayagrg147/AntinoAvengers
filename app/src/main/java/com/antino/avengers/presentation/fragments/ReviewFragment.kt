@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.antino.avengers.Others.PreferenceUtils
 import com.antino.avengers.R
+import com.antino.avengers.Utils.common.PREF_USER_TOKEN
 import com.antino.avengers.Utils.common.get_reviews_api
 import com.antino.avengers.Utils.gone
 import com.antino.avengers.Utils.toast
@@ -28,7 +29,7 @@ class ReviewFragment : Fragment() {
 
     private lateinit var binding: FragmentReviewBinding
     private val developerViewModel by viewModel<DeveloperViewModel<Any?>>()
-
+    private var accessToken = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,6 +41,7 @@ class ReviewFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentReviewBinding.inflate(inflater, container, false)
+        accessToken = "Bearer ${PreferenceUtils.getString(PREF_USER_TOKEN)}"
         return binding.root
     }
 
@@ -62,7 +64,7 @@ class ReviewFragment : Fragment() {
         Log.d("reviewsResponse", getReviewsRequest.toString())
 
 
-        developerViewModel.getReviewsApi(getReviewsRequest, get_reviews_api)
+        developerViewModel.getReviewsApi(accessToken,getReviewsRequest, get_reviews_api)
     }
 
 

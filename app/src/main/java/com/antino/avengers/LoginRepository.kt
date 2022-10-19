@@ -6,6 +6,6 @@ import com.antino.avengers.data.pojo.loginApi.request.LoginRequest
 
 class LoginRepository(private val apiInterface : ApiInterface) {
     suspend fun getLoginDetails(loginRequest: LoginRequest) = apiInterface.loginApi(loginRequest)
-    suspend fun getprojectbymanager(request: ByManagerRequest) = apiInterface.getprojectbymanager(request)
+    suspend fun getprojectbymanager(token:String,request: ByManagerRequest) = apiInterface.getprojectbymanager(token,request)
 
     }

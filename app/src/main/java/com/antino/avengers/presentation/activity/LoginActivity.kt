@@ -10,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.antino.avengers.LoginViewModel
 import com.antino.avengers.Others.PreferenceUtils
 import com.antino.avengers.Utils.common.PREF_LOGGED_IN_USER
+import com.antino.avengers.Utils.common.PREF_USER_TOKEN
 import com.antino.avengers.Utils.isNetworkAvailable
 import com.antino.avengers.Utils.noNetworkToast
 import com.antino.avengers.Utils.toast
@@ -76,6 +77,7 @@ class LoginActivity : AppCompatActivity() {
 
                     PreferenceUtils.putObject(it, PREF_LOGGED_IN_USER)
                     PreferenceUtils.putString("manager", binding.etEmail .text.toString())
+                    PreferenceUtils.putString(PREF_USER_TOKEN,it.accessToken ?: "")
 
                     val intent = Intent(this, HomeActivity::class.java)
                     startActivity(intent)

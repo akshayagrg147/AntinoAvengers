@@ -10,7 +10,7 @@ class DeveloperRepository(private val apiInterface : ApiInterface) {
 
     suspend fun getDevelopers(token: String,getDevelopersRequest: GetDevelopersRequest) = apiInterface.getDevelopersAPI(token,getDevelopersRequest)
 
-    suspend fun getAllProjects() = apiInterface.getAllProjects()
+    suspend fun getAllProjects(token:String) = apiInterface.getAllProjects(token)
 
     suspend fun askForReview(token: String,askForReviewRequest: AskForReviewRequest) = apiInterface.askForReview(token,askForReviewRequest)
 

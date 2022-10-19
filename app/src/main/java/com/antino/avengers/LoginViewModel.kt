@@ -52,14 +52,14 @@ class LoginViewModel<T : Any?>(private val loginRepository: LoginRepository) : V
     }
 
 
-    fun managerId(request: ByManagerRequest, apiType: String) {
+    fun managerId(token: String, request: ByManagerRequest, apiType: String) {
         this.apiType = apiType
         _loadingState.postValue(LoadingState.LOADING)
 
         viewModelScope.launch(Dispatchers.IO) {
             _getProjectByManager.postValue(
 
-                loginRepository.getprojectbymanager(request).body()
+                loginRepository.getprojectbymanager(token,request).body()
             )
         }
     }

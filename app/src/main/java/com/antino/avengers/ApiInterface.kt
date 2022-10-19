@@ -37,7 +37,7 @@ interface ApiInterface {
 
     @Headers("Content-Type: application/json")
     @POST(get_all_projects)
-    suspend fun getAllProjects(): Response<GetAllProjectsResponse>
+    suspend fun getAllProjects(@Header("Authorization") Authorization:String): Response<GetAllProjectsResponse>
 
 
     @Headers("Content-Type: application/json")
