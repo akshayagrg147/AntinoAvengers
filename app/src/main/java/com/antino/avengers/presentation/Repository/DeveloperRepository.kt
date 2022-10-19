@@ -6,12 +6,12 @@ import com.antino.avengers.data.pojo.getDevelopersApi.GetDevelopersRequest
 import com.antino.avengers.data.pojo.getReviewsApi.GetReviewsRequest
 
 class DeveloperRepository(private val apiInterface : ApiInterface) {
-    suspend fun getReview(getReviewsRequest: GetReviewsRequest) = apiInterface.getReviewAPI(getReviewsRequest)
+    suspend fun getReview(token:String,getReviewsRequest: GetReviewsRequest) = apiInterface.getReviewAPI(token,getReviewsRequest)
 
-    suspend fun getDevelopers(getDevelopersRequest: GetDevelopersRequest) = apiInterface.getDevelopersAPI(getDevelopersRequest)
+    suspend fun getDevelopers(token: String,getDevelopersRequest: GetDevelopersRequest) = apiInterface.getDevelopersAPI(token,getDevelopersRequest)
 
     suspend fun getAllProjects() = apiInterface.getAllProjects()
 
-    suspend fun askForReview(askForReviewRequest: AskForReviewRequest) = apiInterface.askForReview(askForReviewRequest)
+    suspend fun askForReview(token: String,askForReviewRequest: AskForReviewRequest) = apiInterface.askForReview(token,askForReviewRequest)
 
 }

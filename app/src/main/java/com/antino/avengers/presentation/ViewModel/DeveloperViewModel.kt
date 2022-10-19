@@ -76,24 +76,25 @@ class DeveloperViewModel<T : Any?>(private val developerRepository: DeveloperRep
         _loadingState.postValue(LoadingState.error(t.message))
     }
 
-    fun getReviewsApi(getReviewsRequest: GetReviewsRequest, apiType: String) {
+    fun getReviewsApi(token:String,getReviewsRequest: GetReviewsRequest, apiType: String) {
         this.apiType = apiType
         _loadingState.postValue(LoadingState.LOADING)
 
         viewModelScope.launch(Dispatchers.IO) {
             _getReviews.postValue(
-                developerRepository.getReview(getReviewsRequest).body()
+                developerRepository.
+                getReview(token,getReviewsRequest).body()
             )
         }
     }
 
-    fun getDevelopersApi(getDevelopersRequest: GetDevelopersRequest,apiType: String) {
+    fun getDevelopersApi(token: String,getDevelopersRequest: GetDevelopersRequest,apiType: String) {
         this.apiType = apiType
         _loadingState.postValue(LoadingState.LOADING)
 
         viewModelScope.launch(Dispatchers.IO) {
             _getDevelopers.postValue(
-                developerRepository.getDevelopers(getDevelopersRequest).body()
+                developerRepository.getDevelopers(token,getDevelopersRequest).body()
             )
         }
     }
@@ -109,13 +110,13 @@ class DeveloperViewModel<T : Any?>(private val developerRepository: DeveloperRep
         }
     }
 
-    fun askForReview(askForReviewRequest: AskForReviewRequest, apiType: String) {
+    fun askForReview(token: String,askForReviewRequest: AskForReviewRequest, apiType: String) {
         this.apiType = apiType
         _loadingState.postValue(LoadingState.LOADING)
 
         viewModelScope.launch(Dispatchers.IO) {
             _askForReview.postValue(
-                developerRepository.askForReview(askForReviewRequest).body()
+                developerRepository.askForReview(token,askForReviewRequest).body()
             )
         }
     }

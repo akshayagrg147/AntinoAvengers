@@ -186,14 +186,14 @@ class DeveloperFragment : Fragment() {
 
     }
 
-    private fun callAskForReviewApi(content:String, subject: String) {
+    private fun callAskForReviewApi(token:String,content:String, subject: String) {
         val request = AskForReviewRequest(
             content = content,
             subject = subject,
             clientId = id,
             clientEmail = null
         )
-        developerViewModel.askForReview(request, ask_for_review)
+        developerViewModel.askForReview(token,request, ask_for_review)
     }
 
 }

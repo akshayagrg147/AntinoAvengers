@@ -22,18 +22,18 @@ interface ApiInterface {
     @POST(sign_in_api)
     suspend fun loginApi(@Body loginRequest: LoginRequest): Response<LoginResponse>
 
-    @Headers("Content-Type: application/json")
+    @Headers("Content-Type: application/json",)
     @POST(getprojectbymanager1)
-    suspend fun getprojectbymanager(@Body request: ByManagerRequest): Response<getProjectManagerResponse>
+    suspend fun getprojectbymanager(@Header("Authorization") Authorization:String, @Body request: ByManagerRequest): Response<getProjectManagerResponse>
 
     @Headers("Content-Type: application/json")
     @POST(get_reviews_api)
-    suspend fun getReviewAPI(@Body getReviewsRequest: GetReviewsRequest): Response<GetReviewsResponse>
+    suspend fun getReviewAPI(@Header("Authorization") Authorization:String,@Body getReviewsRequest: GetReviewsRequest): Response<GetReviewsResponse>
 
 
     @Headers("Content-Type: application/json")
     @POST(get_developers_api)
-    suspend fun getDevelopersAPI(@Body getDevelopersRequest: GetDevelopersRequest): Response<GetDevelopersResponse>
+    suspend fun getDevelopersAPI(@Header("Authorization") Authorization:String,@Body getDevelopersRequest: GetDevelopersRequest): Response<GetDevelopersResponse>
 
     @Headers("Content-Type: application/json")
     @POST(get_all_projects)
@@ -42,7 +42,7 @@ interface ApiInterface {
 
     @Headers("Content-Type: application/json")
     @POST(ask_for_review)
-    suspend fun askForReview(@Body askForReviewRequest: AskForReviewRequest): Response<AskForReviewResponse>
+    suspend fun askForReview(@Header("Authorization") Authorization:String,@Body askForReviewRequest: AskForReviewRequest): Response<AskForReviewResponse>
 
 
 }
